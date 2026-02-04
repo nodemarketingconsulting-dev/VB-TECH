@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Server, Wifi, Shield, Cloud } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -66,131 +65,60 @@ const SOLUTIONS = [
 ];
 
 export function Solutions() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [selectedSolution, setSelectedSolution] = useState<typeof SOLUTIONS[0] | null>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
 
   return (
-    <section id="solucoes" ref={containerRef} className="relative h-[500vh] bg-black">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
-        
-        <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-full flex flex-col justify-center">
-          <div className="mb-8 md:mb-12 relative z-10 text-center md:text-left">
-            <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-4">
+    <section id="solucoes" className="bg-black relative">
+      <div className="sticky top-0 z-0 bg-black pt-20 pb-8 border-b border-white/5 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 text-center md:text-left">
+           <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-2">
               Nossas Soluções
             </h2>
             <p className="text-xl text-muted-foreground">
               Tudo o que você precisa para operar com estabilidade.
             </p>
-          </div>
-
-          <div className="relative w-full h-[500px] md:h-[600px]">
-            {SOLUTIONS.map((solution, index) => {
-              // Create a smooth transition range for each card
-              // Each card takes up a portion of the total scroll distance
-              const rangeStart = index * 0.25; 
-              // The transition happens over a small window to "lock" the card in place
-              const rangeEnd = rangeStart + 0.25;
-
-              // Y position logic:
-              // - Before rangeStart: 100% (below screen)
-              // - At rangeStart: 0% (in position)
-              // - After rangeStart: 0% (stays in position until covered by next)
-              // We use a small buffer for the animation duration (e.g., 0.1)
-              const y = useTransform(
-                scrollYProgress,
-                [rangeStart - 0.1, rangeStart], 
-                ["100%", "0%"]
-              );
-
-              // Scale effect: slightly scale down when the *next* card starts coming in
-              const nextCardStart = (index + 1) * 0.25;
-              const scale = useTransform(
-                scrollYProgress,
-                [nextCardStart - 0.1, nextCardStart],
-                [1, 0.95]
-              );
-              
-              // First card logic:
-              // It should be visible from the very start (0 scroll).
-              // It shouldn't slide up from bottom. It should just be there.
-              const isFirst = index === 0;
-              const cardY = isFirst ? "0%" : y;
-              
-              // Dynamic z-index to ensure proper stacking
-              const zIndex = index * 10;
-
-              return (
-                <motion.div
-                  key={solution.id}
-                  style={{ 
-                    y: cardY,
-                    scale: scale,
-                    zIndex: zIndex,
-                  }}
-                  className="absolute inset-0 w-full will-change-transform"
-                >
-                  <div className={cn(
-                    "h-full w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12",
-                    "rounded-2xl border border-white/10 shadow-2xl",
-                    "bg-[#0a0a0a] backdrop-blur-sm" // Slightly lighter black for visibility
-                  )}>
-                    <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
-                      <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
-                    </div>
-                    
-                    <div className="flex-1 space-y-6 text-center md:text-left">
-                      <h3 className="text-3xl md:text-4xl font-bold font-heading text-white">
-                        {solution.title}
-                      </h3>
-                      <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                        {solution.shortText}
-                      </p>
-                      <Button 
-                        className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50"
-                        onClick={() => setSelectedSolution(solution)}
-                      >
-                        Ver detalhes <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
-                    </div>
-
-                    <div className="hidden lg:block text-9xl font-bold text-white/5 absolute right-8 top-8">
-                      0{index + 1}
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Progress Indicators */}
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50">
-            {SOLUTIONS.map((_, idx) => (
-              <motion.div
-                key={idx}
-                className="w-3 h-3 rounded-full transition-colors duration-300"
-                style={{
-                  backgroundColor: useTransform(
-                    scrollYProgress,
-                    [idx * 0.25, (idx * 0.25) + 0.1],
-                    ["rgba(255,255,255,0.2)", "#2DA9E1"]
-                  ),
-                  scale: useTransform(
-                    scrollYProgress,
-                    [idx * 0.25, (idx * 0.25) + 0.1],
-                    [1, 1.5]
-                  )
-                }}
-              />
-            ))}
-          </div>
         </div>
+      </div>
+
+      <div className="relative z-10 -mt-px">
+        {SOLUTIONS.map((solution, index) => (
+          <div 
+            key={solution.id} 
+            className="sticky top-[180px] h-[calc(100vh-180px)] flex items-start justify-center pt-8 md:pt-16 pb-8"
+          >
+            <div className={cn(
+              "relative w-full max-w-5xl mx-4 md:mx-8",
+              "flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12",
+              "rounded-2xl border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]",
+              "bg-[#0a0a0a]" // Solid background to cover previous cards
+            )}>
+              <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
+                <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
+              </div>
+              
+              <div className="flex-1 space-y-6 text-center md:text-left">
+                <h3 className="text-3xl md:text-4xl font-bold font-heading text-white">
+                  {solution.title}
+                </h3>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                  {solution.shortText}
+                </p>
+                <Button 
+                  className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50"
+                  onClick={() => setSelectedSolution(solution)}
+                >
+                  Ver detalhes <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </div>
+
+              <div className="hidden lg:block text-9xl font-bold text-white/5 absolute right-8 top-8 pointer-events-none">
+                0{index + 1}
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* Spacer at bottom to ensure last card scrolls fully */}
+        <div className="h-[20vh] bg-transparent" />
       </div>
 
       {/* Modal Details */}
