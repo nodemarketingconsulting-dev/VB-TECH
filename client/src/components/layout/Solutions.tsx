@@ -69,37 +69,71 @@ export function Solutions() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSolution, setSelectedSolution] = useState<typeof SOLUTIONS[0] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const wheelTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isScrollingRef = useRef(false);
+
+  // Manual scroll lock logic
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Determine scroll direction
+      const isDown = e.deltaY > 0;
+      const isUp = e.deltaY < 0;
+
+      // Logic:
+      // If going DOWN and NOT at end -> Lock & Next
+      // If going UP and NOT at start -> Lock & Prev
+      // Otherwise -> Allow default (pass through)
+      
+      const isAtEnd = activeIndex === SOLUTIONS.length - 1;
+      const isAtStart = activeIndex === 0;
+
+      if ((isDown && !isAtEnd) || (isUp && !isAtStart)) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isScrollingRef.current) return;
+        isScrollingRef.current = true;
+
+        if (isDown) {
+           setActiveIndex(prev => prev + 1);
+        } else {
+           setActiveIndex(prev => prev - 1);
+        }
+
+        // Debounce slightly to prevent rapid firing
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 500);
+      }
+    };
+
+    // Attach non-passive listener to properly prevent default
+    container.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [activeIndex]); // Re-bind when index changes to check bounds correctly
 
   const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % SOLUTIONS.length);
-  };
-
-  const prevSlide = () => {
-    setActiveIndex((prev) => (prev - 1 + SOLUTIONS.length) % SOLUTIONS.length);
-  };
-
-  // Allow mouse dragging
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (info.offset.x < -50) {
-      nextSlide();
-    } else if (info.offset.x > 50) {
-      prevSlide();
+    if (activeIndex < SOLUTIONS.length - 1) {
+       setActiveIndex(prev => prev + 1);
     }
   };
 
-  // Allow mouse wheel scrolling to navigate
-  const handleWheel = (e: React.WheelEvent) => {
-    // Only navigate if we're not scrolling the page excessively
-    // We want to capture the "intent" to switch slides
-    if (wheelTimeoutRef.current) return;
+  const prevSlide = () => {
+    if (activeIndex > 0) {
+      setActiveIndex(prev => prev - 1);
+    }
+  };
 
-    if (e.deltaY > 20 || e.deltaX > 20) {
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x < -50 && activeIndex < SOLUTIONS.length - 1) {
       nextSlide();
-      wheelTimeoutRef.current = setTimeout(() => { wheelTimeoutRef.current = null; }, 500);
-    } else if (e.deltaY < -20 || e.deltaX < -20) {
+    } else if (info.offset.x > 50 && activeIndex > 0) {
       prevSlide();
-      wheelTimeoutRef.current = setTimeout(() => { wheelTimeoutRef.current = null; }, 500);
     }
   };
 
@@ -107,7 +141,7 @@ export function Solutions() {
     <section 
       id="solucoes" 
       className="py-24 bg-black overflow-hidden relative min-h-[90vh] flex flex-col justify-center"
-      onWheel={handleWheel}
+      ref={containerRef} // Attach ref to the section itself for the event listener
     >
       {/* Background Grid */}
       <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
@@ -123,49 +157,28 @@ export function Solutions() {
 
       <div className="relative w-full max-w-[1400px] mx-auto h-[500px] flex items-center justify-center perspective-[1000px]">
         {/* Navigation Arrows */}
-        <button 
-          onClick={prevSlide}
-          className="absolute left-4 md:left-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
-        >
-          <ChevronLeft size={24} />
-        </button>
+        {activeIndex > 0 && (
+          <button 
+            onClick={prevSlide}
+            className="absolute left-4 md:left-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
+          >
+            <ChevronLeft size={24} />
+          </button>
+        )}
         
-        <button 
-          onClick={nextSlide}
-          className="absolute right-4 md:right-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
-        >
-          <ChevronRight size={24} />
-        </button>
+        {activeIndex < SOLUTIONS.length - 1 && (
+          <button 
+            onClick={nextSlide}
+            className="absolute right-4 md:right-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
+          >
+            <ChevronRight size={24} />
+          </button>
+        )}
 
         {/* Carousel Container */}
-        <div className="relative w-full h-full flex items-center justify-center" ref={containerRef}>
+        <div className="relative w-full h-full flex items-center justify-center">
           {SOLUTIONS.map((solution, index) => {
-            // Calculate relative position based on active index
-            // e.g., if active is 1: 0 is prev (-1), 1 is active (0), 2 is next (1)
-            let relativeIndex = index - activeIndex;
-
-            // Handle infinite wrapping visual logic
-            // We want smooth stacking, so we don't need true infinite wrapping 
-            // but we need to handle the stack order correctly.
-            
-            // Simplified "Deck of Cards" logic:
-            // Active (0): Center, Scale 1, Z-index 10
-            // Next (+1): Right, Scale 0.9, Z-index 9 (Under active)
-            // Prev (-1): Left, Scale 0.9, Opacity 0 (Hidden or faded)
-            // Far Next (+2): Right+, Scale 0.8, Z-index 8
-            
-            // But user said: "Sobe por cima do outro na horizontal" (Climb on top of other horizontally)
-            // This implies the incoming card (from right?) slides OVER the current one?
-            // Or like the Apple stack where right cards are stacked and slide IN.
-            
-            // Let's implement: Right cards are stacked. Active is front-left. 
-            // When going Next: Active slides out left. Next slides in to became Active.
-            // All future cards shift left.
-            
-            const isVisible = index >= activeIndex;
-            const offset = index - activeIndex; // 0 for active, 1 for next...
-
-            // If index < activeIndex, it's "passed" - slide it far left and hide
+            const offset = index - activeIndex; 
             const isPassed = index < activeIndex;
 
             return (
@@ -177,12 +190,12 @@ export function Solutions() {
                 initial={false}
                 animate={{
                   x: isPassed 
-                    ? -window.innerWidth // Slide out completely to left
-                    : offset * 40, // Stacked cards peek out by 40px each
-                  scale: isPassed ? 0.9 : 1 - (offset * 0.05), // Slightly smaller as they go back
-                  zIndex: SOLUTIONS.length - offset, // Active is highest, then descending
-                  opacity: isPassed ? 0 : 1 - (offset * 0.2), // Fade out deeper cards
-                  rotateY: isPassed ? -20 : offset * -2, // Subtle 3D effect
+                    ? -window.innerWidth 
+                    : offset * 40,
+                  scale: isPassed ? 0.9 : 1 - (offset * 0.05),
+                  zIndex: SOLUTIONS.length - offset,
+                  opacity: isPassed ? 0 : 1 - (offset * 0.2),
+                  rotateY: isPassed ? -20 : offset * -2,
                 }}
                 transition={{
                   type: "spring",
@@ -196,7 +209,7 @@ export function Solutions() {
                 )}
                 style={{
                   left: "50%",
-                  marginLeft: window.innerWidth < 768 ? "-42.5vw" : "-400px", // Center alignment hack
+                  marginLeft: window.innerWidth < 768 ? "-42.5vw" : "-400px",
                 }}
               >
                 <div className="h-full flex flex-col md:flex-row p-6 md:p-12 gap-8 items-center">
