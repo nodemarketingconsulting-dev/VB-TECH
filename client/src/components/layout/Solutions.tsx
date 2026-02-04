@@ -138,7 +138,7 @@ export function Solutions() {
                   }}
                   className="absolute inset-0 w-full"
                 >
-                  <GlassCard className="h-full w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12 border-t border-white/10 bg-black/80 backdrop-blur-xl">
+                  <GlassCard className="h-full w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12 border-t border-white/10 bg-[#09090b] shadow-2xl">
                     <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
                       <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
                     </div>
