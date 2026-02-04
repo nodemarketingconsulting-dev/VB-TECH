@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { GlassCard } from "@/components/ui/glass-card";
-import { ArrowRight, CheckCircle2, Server, Wifi, Shield, Cloud, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Server, Wifi, Shield, Cloud } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 const SOLUTIONS = [
   {
@@ -75,13 +75,13 @@ export function Solutions() {
   });
 
   return (
-    <section id="solucoes" ref={containerRef} className="relative h-[400vh] bg-black">
+    <section id="solucoes" ref={containerRef} className="relative h-[500vh] bg-black">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
         
         <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 h-full flex flex-col justify-center">
-          <div className="mb-8 md:mb-12 relative z-10">
+          <div className="mb-8 md:mb-12 relative z-10 text-center md:text-left">
             <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-4">
               Nossas Soluções
             </h2>
@@ -90,55 +90,57 @@ export function Solutions() {
             </p>
           </div>
 
-          <div className="relative w-full h-[60vh] md:h-[500px]">
+          <div className="relative w-full h-[500px] md:h-[600px]">
             {SOLUTIONS.map((solution, index) => {
-              // Calculate range for each card
-              const step = 1 / SOLUTIONS.length;
-              const start = index * step;
-              const end = start + step;
+              // Create a smooth transition range for each card
+              // Each card takes up a portion of the total scroll distance
+              const rangeStart = index * 0.25; 
+              // The transition happens over a small window to "lock" the card in place
+              const rangeEnd = rangeStart + 0.25;
 
-              const opacity = useTransform(
-                scrollYProgress,
-                [start, start + 0.1, end - 0.1, end],
-                [0, 1, 1, 0] // Fade in, stay, fade out (or stack)
-              );
-              
-              // Modified for stacking effect: 
-              // Card i enters from bottom, covers card i-1.
-              // We need a specific transform logic.
-              // Actually, the prompt asked for "Overlay the next", like stacked cards.
-              
-              // Let's try a simpler stacking approach where they don't fade out, just get covered.
+              // Y position logic:
+              // - Before rangeStart: 100% (below screen)
+              // - At rangeStart: 0% (in position)
+              // - After rangeStart: 0% (stays in position until covered by next)
+              // We use a small buffer for the animation duration (e.g., 0.1)
               const y = useTransform(
                 scrollYProgress,
-                [start, start + 0.1], // Enter quickly
+                [rangeStart - 0.1, rangeStart], 
                 ["100%", "0%"]
               );
-              
+
+              // Scale effect: slightly scale down when the *next* card starts coming in
+              const nextCardStart = (index + 1) * 0.25;
               const scale = useTransform(
                 scrollYProgress,
-                [start, end],
-                [1, 0.95] // Slight scale down as next one comes
+                [nextCardStart - 0.1, nextCardStart],
+                [1, 0.95]
               );
               
-              // First card should be visible from start, others enter
+              // First card logic:
+              // It should be visible from the very start (0 scroll).
+              // It shouldn't slide up from bottom. It should just be there.
               const isFirst = index === 0;
               const cardY = isFirst ? "0%" : y;
-              const cardOpacity = isFirst 
-                  ? useTransform(scrollYProgress, [0, 0.2], [1, 1]) 
-                  : useTransform(scrollYProgress, [start - 0.1, start], [0, 1]);
+              
+              // Dynamic z-index to ensure proper stacking
+              const zIndex = index * 10;
 
               return (
                 <motion.div
                   key={solution.id}
                   style={{ 
                     y: cardY,
-                    zIndex: index,
-                    scale: isFirst ? useTransform(scrollYProgress, [0, 0.25], [1, 0.95]) : scale,
+                    scale: scale,
+                    zIndex: zIndex,
                   }}
-                  className="absolute inset-0 w-full"
+                  className="absolute inset-0 w-full will-change-transform"
                 >
-                  <GlassCard className="h-full w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12 border-t border-white/10 bg-[#09090b] shadow-2xl">
+                  <div className={cn(
+                    "h-full w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12",
+                    "rounded-2xl border border-white/10 shadow-2xl",
+                    "bg-[#0a0a0a] backdrop-blur-sm" // Slightly lighter black for visibility
+                  )}>
                     <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
                       <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
                     </div>
@@ -161,7 +163,7 @@ export function Solutions() {
                     <div className="hidden lg:block text-9xl font-bold text-white/5 absolute right-8 top-8">
                       0{index + 1}
                     </div>
-                  </GlassCard>
+                  </div>
                 </motion.div>
               );
             })}
@@ -172,7 +174,7 @@ export function Solutions() {
             {SOLUTIONS.map((_, idx) => (
               <motion.div
                 key={idx}
-                className="w-3 h-3 rounded-full bg-white/20"
+                className="w-3 h-3 rounded-full transition-colors duration-300"
                 style={{
                   backgroundColor: useTransform(
                     scrollYProgress,
@@ -193,7 +195,7 @@ export function Solutions() {
 
       {/* Modal Details */}
       <Dialog open={!!selectedSolution} onOpenChange={(open) => !open && setSelectedSolution(null)}>
-        <DialogContent className="bg-black/90 backdrop-blur-xl border-white/10 text-white max-w-2xl">
+        <DialogContent className="bg-zinc-950 border-white/10 text-white max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl font-heading flex items-center gap-3 text-primary">
               {selectedSolution && <selectedSolution.icon className="w-6 h-6" />}
