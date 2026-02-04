@@ -1,0 +1,235 @@
+Você é um desenvolvedor full-stack sênior. Crie um site institucional moderno (landing page) para a empresa VB Tech, com visual tecnológico premium, seguindo as referências visuais (dark tech, glow azul, cards glassmorphism) e com animações avançadas.
+
+Stack e requisitos técnicos
+1) Use Next.js 14+ (App Router) com TypeScript.
+2) Tailwind CSS para estilos.
+3) Framer Motion para animações (instalar e usar).
+4) Opcional (se precisar para ficar ainda mais “cinema” na sessão de produtos): GSAP + ScrollTrigger. Só use se o efeito de sobreposição por scroll ficar melhor do que apenas Framer Motion.
+5) Site 100% responsivo (mobile-first).
+6) Performance: usar next/image com imagens otimizadas e placeholders.
+7) Acessibilidade: contraste bom, foco visível, aria-label em botões, navegação por teclado.
+
+Identidade visual (obrigatório)
+Cores do site:
+- Branco: #FFFFFF
+- Preto: #000000
+- Azul destaque: #2DA9E1
+
+Regras de design
+- Fundo predominantemente preto com variações sutis (gradientes radiais, grid tech bem leve).
+- O azul #2DA9E1 aparece como glow, bordas, detalhes, hover e indicadores.
+- Cards com glassmorphism: fundo branco bem translúcido (opacity baixa), blur, bordas finas.
+- Tipografia moderna: use Inter (texto) e uma fonte mais “tech” para títulos (ex: Space Grotesk). Se não quiser importar duas, use Inter com pesos bem definidos.
+- Botões com microinterações: hover, brilho, leve lift, e transições suaves.
+- Animações em todas as seções ao entrar na viewport, mas sem exagero no mobile (respeitar prefers-reduced-motion).
+
+Estrutura do site (1 página + página “Área do Cliente”)
+Rotas:
+- / (landing)
+- /cliente (Área do Cliente: tela simples “Em breve” + botão voltar + CTA contato)
+
+Header (fixo, elegante)
+- Logo “VB Tech” (placeholder)
+- Menu âncoras: Home, Sobre, Soluções, Benefícios, Como trabalhamos, Tecnologias, Clientes, Contato
+- Botão destaque no topo: “Área do Cliente” (leva para /cliente)
+- Animação: header muda levemente ao scroll (blur e fundo mais opaco).
+
+Seções e copy (usar exatamente estes textos)
+
+1) HERO (id="home")
+H1: Integrando Soluções
+H2: Gestão de TI para o seu negócio.
+Subtexto:
+“Gestão de TI, redes, segurança e cloud para manter sua empresa estável, segura e pronta para crescer, com suporte remoto e presencial.”
+Destaques rápidos (3):
+- Monitoramento proativo e resposta rápida
+- Segurança por boas práticas e controle de acesso
+- Operação organizada com processos e rastreabilidade
+CTAs (botões):
+- Solicitar diagnóstico (scroll para Contato + destaque no formulário)
+- Falar com um especialista (abre WhatsApp placeholder ou mailto)
+Microcopy:
+“Atendimento consultivo para entender seu cenário e indicar o caminho mais eficiente.”
+
+Visual do hero:
+- Layout 2 colunas no desktop.
+- Lado direito com uma ilustração/shape tech (pode ser SVG abstrato, partículas, wireframe, glows, “holograma”).
+- Background com grid sutil e blobs de luz azul.
+- Animações: títulos com fade + slide; o visual com parallax suave no mouse (desktop) e leve flutuação (CSS/Framer).
+
+2) QUANDO É HORA DE AGIR (id="sinais")
+Título: Sinais de que sua TI precisa de estrutura
+Bullets:
+- Expansão ou fusão empresarial
+- Lentidão, quedas ou falhas frequentes
+- Ameaças de segurança ou ataques
+- Prevenção de riscos tecnológicos
+- Otimização de recursos
+Fechamento curto:
+“Se algum desses pontos está presente, o melhor caminho é organizar a base: disponibilidade, segurança e controle.”
+Layout:
+- Cards em 2 colunas (desktop) e lista elegante no mobile.
+- Animação de entrada por item (stagger).
+
+3) SOBRE A VB TECH (id="sobre")
+Texto:
+“A VB Tech administra todas as atividades, soluções e recursos tecnológicos com o objetivo de garantir segurança e um crescimento organizado para sua empresa, com qualidade e melhoria contínua por meio de recursos tecnológicos que descomplicam a operação.”
+Bloco Missão:
+“Mitigar riscos e reduzir a fragilidade de ambientes virtuais, promover economia e aumentar a eficiência para que sua empresa foque no que realmente importa.”
+Layout:
+- Seção com card glassmorphism para Missão.
+- Ícones lineares e detalhes em #2DA9E1.
+
+4) NOSSO MÉTODO (id="metodo")
+Título: Pessoas, Processos e Ferramentas
+Sub:
+“Tecnologia bem gerida não é só ‘resolver chamado’. É método, rotina e controle.”
+Cards (3):
+- Pessoas: time técnico capacitado, atendimento responsável e suporte em níveis (N1 e N2).
+- Processos: padrões de atendimento, prevenção, documentação e rastreabilidade.
+- Ferramentas: monitoramento e gestão para dar visibilidade, previsibilidade e segurança operacional.
+Animações:
+- Hover com brilho + borda azul.
+- Entrada na viewport com stagger.
+
+5) SOLUÇÕES (id="solucoes")  <<< AQUI É A PARTE MAIS IMPORTANTE
+Título: Nossas soluções
+Sub:
+“Tudo o que você precisa para operar com estabilidade, segurança e eficiência.”
+
+Crie 4 produtos/soluções com este conteúdo:
+
+5.1 Terceirização de TI
+Texto:
+“Gestão de ativos, backup seguro, monitoramento proativo e suporte ágil (remoto e presencial), com controle e organização do ambiente.”
+O que entregamos:
+- Gestão de ativos e organização do ambiente
+- Monitoramento proativo e suporte ágil
+- Backup seguro e manutenção preventiva
+- Acompanhamento por histórico de atendimento e prazos acordados (SLA)
+
+5.2 Infraestrutura de Redes
+Texto:
+“Diagnóstico, monitoramento, planejamento, análise, implantação e testes para redes físicas e Wi-Fi, com foco em performance e estabilidade.”
+O que entregamos:
+- Diagnóstico de rede e melhorias de performance
+- Planejamento e análise de rede wireless
+- Site Survey e desenho de cobertura com distribuição de APs em planta
+- Implantação, testes e adequação a normas
+- Gerenciamento e monitoramento da infraestrutura
+
+5.3 Segurança da Informação
+Texto:
+“Proteção completa para reduzir vulnerabilidades e fortalecer sua operação: análise de riscos, firewall e antivírus gerenciados, além de mapeamento de segurança.”
+O que entregamos:
+- Correções priorizadas com base em risco real
+- Firewall e antivírus gerenciados
+- Mapeamento e fortalecimento de segurança (CIS v8 SMB)
+- Melhores práticas e prevenção de incidentes
+
+5.4 Cloud & Internet
+Texto:
+“Soluções em cloud e conectividade para acesso seguro a dados, produtividade e escalabilidade.”
+O que entregamos:
+- Internet dedicada e banda larga
+- Telefonia VoIP e móvel
+- Hospedagem e backup em nuvem
+- Integração e suporte com Microsoft 365
+
+Efeito de animação solicitado (obrigatório):
+- “Cada produto aparece de uma vez e sobrepõe o próximo”, como um carrossel por scroll com cards empilhados.
+Implementação (preferência):
+- Criar uma seção com altura total = número_de_cards * 100vh.
+- Dentro dela, um container sticky (position: sticky; top: 0; height: 100vh).
+- Renderizar os 4 cards como layers absolutos (um em cima do outro).
+- Conforme o usuário rola, o card atual entra (de baixo para cima), fica 100% visível, e o próximo entra por cima (overlay), mantendo o anterior visível por baixo.
+- Usar Framer Motion useScroll + useTransform para controlar translateY, opacity e scale por intervalos (0-0.25, 0.25-0.5, etc).
+- Colocar indicador lateral (dots + título ativo) animado, com #2DA9E1.
+- Em mobile, permitir swipe opcional OU reduzir o efeito para “um card por vez” com snap scroll (scroll-snap) para ficar confortável.
+
+Interações extras na seção de Soluções:
+- Ao clicar em “Ver detalhes” (botão dentro do card), abrir um modal glassmorphism com o texto completo e a lista “O que entregamos”.
+- Modal com animação suave, backdrop escurecido e foco preso (acessível).
+
+6) BENEFÍCIOS (id="beneficios")
+Título: O que muda quando a TI é bem gerida
+Bullets:
+- Menos paradas e mais previsibilidade
+- Redução de riscos e vulnerabilidades
+- Mais produtividade com ambiente organizado
+- Melhor controle de acessos e mudanças
+- TI alinhada ao objetivo de negócio
+CTA secundário (botão):
+“Quero organizar minha TI” (scroll para Contato)
+Layout:
+- Lista elegante + mini cards.
+- Animação de ícones e números (se quiser, contar 1 a 5 ao entrar).
+
+7) COMO TRABALHAMOS (id="como")
+Título: Da análise à melhoria contínua
+Etapas:
+- Diagnóstico do ambiente e prioridades
+- Plano de ação com etapas claras
+- Implantação e padronização
+- Operação com monitoramento e rotinas
+- Evolução contínua com melhorias e prevenção
+Layout:
+- Linha do tempo vertical no mobile e horizontal no desktop.
+- Cada etapa com animação de progress ao scroll.
+
+8) TECNOLOGIAS E FORNECEDORES (id="tecnologias")
+Título: Tecnologias e fornecedores que fortalecem a operação
+Texto:
+“Trabalhamos com soluções reconhecidas para entregar estabilidade, segurança e suporte com qualidade.”
+Cards/logos:
+- Microsoft 365 (revenda autorizada)
+- Bitdefender
+- Fortinet
+- GoTo
+- HD Telecom
+Layout:
+- Grid de badges/“logos” com borda e glow azul ao hover.
+
+9) CLIENTES / SEGMENTOS (id="clientes")
+Título: Empresas que precisam de estabilidade
+Texto:
+“Saúde, indústria, varejo e serviços, com suporte remoto e presencial conforme a necessidade.”
+Se quiser, incluir subtítulo opcional:
+“Alguns clientes atendidos.” (com placeholders de logos)
+
+10) CONTATO (id="contato")
+Título: Vamos conversar sobre o seu cenário
+Texto:
+“Conte rapidamente como está sua TI hoje. A VB Tech retorna com um direcionamento objetivo e próximos passos.”
+Form:
+- Nome
+- E-mail
+- Telefone/WhatsApp
+- Mensagem
+Botão: Enviar
+Microcopy:
+“Resposta rápida em horário comercial.”
+Comportamento do form:
+- Validação básica (required, email).
+- Ao enviar, mostrar toast “Mensagem enviada” (simulado) e limpar campos.
+- Também disponibilizar botão “Falar no WhatsApp” (placeholder de link).
+
+Footer
+- Repetir menu
+- Link “Área do Cliente”
+- Mini texto: “VB Tech. Gestão de TI com estabilidade, segurança e controle.”
+
+Detalhes de animação e “sensação premium” (obrigatório)
+- Transições suaves (duration 0.4-0.7) e easing moderno.
+- Glows e highlights aparecem no hover.
+- Section reveal com whileInView.
+- Fundo com detalhes animados discretos (ex: partículas leves ou gradientes que “respiram”).
+- Respeitar prefers-reduced-motion.
+
+Entrega do projeto
+- Criar todos os arquivos necessários (layout, components, estilos, rotas).
+- Garantir que rode com “npm run dev”.
+- Incluir um README curto com instruções.
+- Se precisar de imagens, usar placeholders em /public (ex: tech-hero.png) e deixar fácil trocar.
+
+Comece criando o projeto, instalando dependências e gerando o código completo.
