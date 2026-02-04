@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { motion, useAnimation, PanInfo } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Server, Wifi, Shield, Cloud } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Server, Wifi, Shield, Cloud, ChevronRight, ChevronLeft } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
@@ -65,60 +66,181 @@ const SOLUTIONS = [
 ];
 
 export function Solutions() {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSolution, setSelectedSolution] = useState<typeof SOLUTIONS[0] | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wheelTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % SOLUTIONS.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + SOLUTIONS.length) % SOLUTIONS.length);
+  };
+
+  // Allow mouse dragging
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x < -50) {
+      nextSlide();
+    } else if (info.offset.x > 50) {
+      prevSlide();
+    }
+  };
+
+  // Allow mouse wheel scrolling to navigate
+  const handleWheel = (e: React.WheelEvent) => {
+    // Only navigate if we're not scrolling the page excessively
+    // We want to capture the "intent" to switch slides
+    if (wheelTimeoutRef.current) return;
+
+    if (e.deltaY > 20 || e.deltaX > 20) {
+      nextSlide();
+      wheelTimeoutRef.current = setTimeout(() => { wheelTimeoutRef.current = null; }, 500);
+    } else if (e.deltaY < -20 || e.deltaX < -20) {
+      prevSlide();
+      wheelTimeoutRef.current = setTimeout(() => { wheelTimeoutRef.current = null; }, 500);
+    }
+  };
 
   return (
-    <section id="solucoes" className="bg-black relative">
-      <div className="sticky top-0 z-0 bg-black pt-20 pb-8 border-b border-white/5 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 text-center md:text-left">
-           <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-2">
-              Nossas Soluções
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Tudo o que você precisa para operar com estabilidade.
-            </p>
-        </div>
+    <section 
+      id="solucoes" 
+      className="py-24 bg-black overflow-hidden relative min-h-[90vh] flex flex-col justify-center"
+      onWheel={handleWheel}
+    >
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10 mb-12">
+        <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-2">
+          Nossas Soluções
+        </h2>
+        <p className="text-xl text-muted-foreground">
+          Tudo o que você precisa para operar com estabilidade.
+        </p>
       </div>
 
-      <div className="relative z-10 -mt-px">
-        {SOLUTIONS.map((solution, index) => (
-          <div 
-            key={solution.id} 
-            className="sticky top-[180px] h-[calc(100vh-180px)] flex items-start justify-center pt-8 md:pt-16 pb-8"
-          >
-            <div className={cn(
-              "relative w-full max-w-5xl mx-4 md:mx-8",
-              "flex flex-col md:flex-row items-center gap-8 md:gap-12 p-8 md:p-12",
-              "rounded-2xl border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]",
-              "bg-[#0a0a0a]" // Solid background to cover previous cards
-            )}>
-              <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
-                <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
-              </div>
-              
-              <div className="flex-1 space-y-6 text-center md:text-left">
-                <h3 className="text-3xl md:text-4xl font-bold font-heading text-white">
-                  {solution.title}
-                </h3>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                  {solution.shortText}
-                </p>
-                <Button 
-                  className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50"
-                  onClick={() => setSelectedSolution(solution)}
-                >
-                  Ver detalhes <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </div>
+      <div className="relative w-full max-w-[1400px] mx-auto h-[500px] flex items-center justify-center perspective-[1000px]">
+        {/* Navigation Arrows */}
+        <button 
+          onClick={prevSlide}
+          className="absolute left-4 md:left-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        
+        <button 
+          onClick={nextSlide}
+          className="absolute right-4 md:right-12 z-50 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all backdrop-blur-sm"
+        >
+          <ChevronRight size={24} />
+        </button>
 
-              <div className="hidden lg:block text-9xl font-bold text-white/5 absolute right-8 top-8 pointer-events-none">
-                0{index + 1}
-              </div>
-            </div>
-          </div>
-        ))}
-        {/* Spacer at bottom to ensure last card scrolls fully */}
-        <div className="h-[20vh] bg-transparent" />
+        {/* Carousel Container */}
+        <div className="relative w-full h-full flex items-center justify-center" ref={containerRef}>
+          {SOLUTIONS.map((solution, index) => {
+            // Calculate relative position based on active index
+            // e.g., if active is 1: 0 is prev (-1), 1 is active (0), 2 is next (1)
+            let relativeIndex = index - activeIndex;
+
+            // Handle infinite wrapping visual logic
+            // We want smooth stacking, so we don't need true infinite wrapping 
+            // but we need to handle the stack order correctly.
+            
+            // Simplified "Deck of Cards" logic:
+            // Active (0): Center, Scale 1, Z-index 10
+            // Next (+1): Right, Scale 0.9, Z-index 9 (Under active)
+            // Prev (-1): Left, Scale 0.9, Opacity 0 (Hidden or faded)
+            // Far Next (+2): Right+, Scale 0.8, Z-index 8
+            
+            // But user said: "Sobe por cima do outro na horizontal" (Climb on top of other horizontally)
+            // This implies the incoming card (from right?) slides OVER the current one?
+            // Or like the Apple stack where right cards are stacked and slide IN.
+            
+            // Let's implement: Right cards are stacked. Active is front-left. 
+            // When going Next: Active slides out left. Next slides in to became Active.
+            // All future cards shift left.
+            
+            const isVisible = index >= activeIndex;
+            const offset = index - activeIndex; // 0 for active, 1 for next...
+
+            // If index < activeIndex, it's "passed" - slide it far left and hide
+            const isPassed = index < activeIndex;
+
+            return (
+              <motion.div
+                key={solution.id}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={handleDragEnd}
+                initial={false}
+                animate={{
+                  x: isPassed 
+                    ? -window.innerWidth // Slide out completely to left
+                    : offset * 40, // Stacked cards peek out by 40px each
+                  scale: isPassed ? 0.9 : 1 - (offset * 0.05), // Slightly smaller as they go back
+                  zIndex: SOLUTIONS.length - offset, // Active is highest, then descending
+                  opacity: isPassed ? 0 : 1 - (offset * 0.2), // Fade out deeper cards
+                  rotateY: isPassed ? -20 : offset * -2, // Subtle 3D effect
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                }}
+                className={cn(
+                  "absolute w-[85vw] md:w-[800px] h-auto md:h-[450px] cursor-grab active:cursor-grabbing",
+                  "rounded-3xl border border-white/10 shadow-2xl",
+                  "bg-[#0a0a0a] overflow-hidden origin-center-left"
+                )}
+                style={{
+                  left: "50%",
+                  marginLeft: window.innerWidth < 768 ? "-42.5vw" : "-400px", // Center alignment hack
+                }}
+              >
+                <div className="h-full flex flex-col md:flex-row p-6 md:p-12 gap-8 items-center">
+                  <div className={`w-20 h-20 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${solution.color} flex items-center justify-center shrink-0 shadow-lg shadow-white/5`}>
+                    <solution.icon className="text-white w-10 h-10 md:w-16 md:h-16" />
+                  </div>
+                  
+                  <div className="flex-1 space-y-6 text-center md:text-left">
+                    <h3 className="text-2xl md:text-4xl font-bold font-heading text-white">
+                      {solution.title}
+                    </h3>
+                    <p className="text-base md:text-xl text-muted-foreground leading-relaxed">
+                      {solution.shortText}
+                    </p>
+                    <Button 
+                      className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50"
+                      onClick={() => setSelectedSolution(solution)}
+                    >
+                      Ver detalhes <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="hidden md:block text-8xl font-bold text-white/5 absolute right-8 top-8 pointer-events-none">
+                    0{index + 1}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+        
+        {/* Indicators */}
+        <div className="absolute bottom-[-40px] flex gap-3">
+          {SOLUTIONS.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveIndex(idx)}
+              className={cn(
+                "w-3 h-3 rounded-full transition-all duration-300",
+                idx === activeIndex ? "bg-primary w-8" : "bg-white/20 hover:bg-white/40"
+              )}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Modal Details */}
