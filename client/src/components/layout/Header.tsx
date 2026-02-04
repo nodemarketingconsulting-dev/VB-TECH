@@ -51,16 +51,13 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
         <Link href="/">
           <a className="flex items-center gap-2 group cursor-pointer">
-            <div className="w-8 h-8 md:w-10 md:h-10 relative">
+            <div className="w-32 h-10 md:w-40 md:h-12 relative">
               <img 
                 src="/images/vb-tech-logo.png" 
                 alt="VB Tech" 
                 className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(45,169,225,0.5)]" 
               />
             </div>
-            <span className="text-xl md:text-2xl font-bold font-heading tracking-tight text-white group-hover:text-primary transition-colors">
-              VB Tech
-            </span>
           </a>
         </Link>
 

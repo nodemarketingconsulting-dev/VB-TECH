@@ -15,8 +15,9 @@ export function Footer() {
           <div className="space-y-6">
             <Link href="/">
               <a className="flex items-center gap-2 cursor-pointer">
-                <img src="/images/vb-tech-logo.png" alt="VB Tech" className="w-8 h-8 object-contain" />
-                <span className="text-2xl font-bold font-heading text-white">VB Tech</span>
+                <div className="w-32 h-10 relative">
+                  <img src="/images/vb-tech-logo.png" alt="VB Tech" className="w-full h-full object-contain" />
+                </div>
               </a>
             </Link>
             <p className="text-muted-foreground leading-relaxed">
