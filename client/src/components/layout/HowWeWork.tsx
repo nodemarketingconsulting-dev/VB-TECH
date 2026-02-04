@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
+import { revealVariants, staggerContainer } from "@/lib/motion";
 
 const STEPS = [
   { title: "Diagnóstico", text: "Análise do ambiente e prioridades" },
@@ -13,24 +14,34 @@ export function HowWeWork() {
   return (
     <Section id="como" className="py-24">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-4">
-          Da análise à melhoria contínua
-        </h2>
-        <p className="text-muted-foreground">Como trabalhamos</p>
+        <motion.div
+           variants={revealVariants}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, margin: "-100px" }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-4">
+            Da análise à melhoria contínua
+          </h2>
+          <p className="text-muted-foreground">Como trabalhamos</p>
+        </motion.div>
       </div>
 
       <div className="relative">
         {/* Line for desktop */}
         <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent -translate-y-1/2" />
         
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 relative z-10">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-5 gap-8 relative z-10"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {STEPS.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-              viewport={{ once: true }}
+              variants={revealVariants}
               className="flex flex-col items-center text-center group"
             >
               <div className="w-12 h-12 rounded-full bg-black border-2 border-primary/50 flex items-center justify-center text-primary font-bold z-10 group-hover:bg-primary group-hover:text-white transition-all shadow-[0_0_15px_rgba(45,169,225,0.2)]">
@@ -40,7 +51,7 @@ export function HowWeWork() {
               <p className="text-sm text-muted-foreground">{step.text}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

@@ -2,15 +2,17 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Target, Lightbulb } from "lucide-react";
+import { revealVariants } from "@/lib/motion";
 
 export function About() {
   return (
     <Section id="sobre" className="py-24 relative">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          variants={revealVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
           className="space-y-8"
         >
           <h2 className="text-4xl md:text-5xl font-bold font-heading text-white">
@@ -27,9 +29,10 @@ export function About() {
         </motion.div>
 
         <motion.div
-           initial={{ opacity: 0, scale: 0.9 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           viewport={{ once: true }}
+           variants={revealVariants}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, margin: "-100px" }}
         >
           <GlassCard className="p-8 md:p-12 border-l-4 border-primary/50 relative">
             <div className="absolute -top-6 -left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/30">

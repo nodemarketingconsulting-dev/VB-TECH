@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Activity, Layers } from "lucide-react";
+import { revealVariants, staggerContainer } from "@/lib/motion";
 
 export function Hero() {
   return (
@@ -22,12 +23,13 @@ export function Hero() {
 
       <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left Content */}
-        <div className="space-y-8 text-center lg:text-left">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+        <motion.div 
+          className="space-y-8 text-center lg:text-left"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={revealVariants}>
             <span className="inline-block py-1 px-3 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-4 tracking-wide">
               SOLUÇÕES EM TI
             </span>
@@ -41,9 +43,7 @@ export function Hero() {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={revealVariants}
             className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed"
           >
             Gestão de TI, redes, segurança e cloud para manter sua empresa estável, 
@@ -51,9 +51,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            variants={revealVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
             <Button 
@@ -74,9 +72,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            variants={revealVariants}
             className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/5"
           >
             {[
@@ -92,13 +88,13 @@ export function Hero() {
               </div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Right Visual */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} // Custom slow cinematic ease
           className="relative hidden lg:block"
         >
           <div className="relative w-full aspect-square max-w-[600px] mx-auto">

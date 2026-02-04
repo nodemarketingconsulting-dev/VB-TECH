@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { GlassCard } from "@/components/ui/glass-card";
 import { AlertTriangle, Zap, Lock, BarChart3, TrendingUp } from "lucide-react";
+import { revealVariants, staggerContainer } from "@/lib/motion";
 
 const SIGNS = [
   { icon: TrendingUp, title: "Expansão ou fusão", text: "Sua empresa cresceu e a TI antiga não acompanha mais a demanda." },
@@ -14,34 +15,33 @@ const SIGNS = [
 export function Signs() {
   return (
     <Section id="sinais" className="py-24">
-      <div className="text-center mb-16">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold font-heading text-white mb-6"
-        >
+      <motion.div 
+        className="text-center mb-16"
+        variants={revealVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <h2 className="text-3xl md:text-5xl font-bold font-heading text-white mb-6">
           Sinais de que sua TI precisa de estrutura
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-lg text-muted-foreground max-w-2xl mx-auto"
-        >
+        </h2>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Se algum desses pontos está presente, o melhor caminho é organizar a base: disponibilidade, segurança e controle.
-        </motion.p>
-      </div>
+        </p>
+      </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div 
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
         {SIGNS.map((sign, index) => (
           <GlassCard 
             key={index} 
             hoverEffect 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            variants={revealVariants}
             className="flex flex-col items-start gap-4"
           >
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2">
@@ -51,7 +51,7 @@ export function Signs() {
             <p className="text-muted-foreground">{sign.text}</p>
           </GlassCard>
         ))}
-      </div>
+      </motion.div>
     </Section>
   );
 }

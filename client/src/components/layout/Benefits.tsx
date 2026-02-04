@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { revealVariants, staggerContainer } from "@/lib/motion";
 
 const BENEFITS = [
   "Menos paradas e mais previsibilidade",
@@ -16,9 +17,10 @@ export function Benefits() {
     <Section id="beneficios" className="py-24 bg-gradient-to-b from-primary/5 to-transparent">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
-           initial={{ opacity: 0, x: -20 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           viewport={{ once: true }}
+           variants={revealVariants}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true, margin: "-100px" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-6">
             O que muda quando a TI é bem gerida
@@ -31,14 +33,17 @@ export function Benefits() {
           </Button>
         </motion.div>
 
-        <div className="space-y-6">
+        <motion.div 
+          className="space-y-6"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {BENEFITS.map((benefit, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
+              variants={revealVariants}
               className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors"
             >
               <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold shrink-0">
@@ -47,7 +52,7 @@ export function Benefits() {
               <span className="text-lg text-white/90">{benefit}</span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

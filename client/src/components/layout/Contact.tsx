@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Phone, Mail } from "lucide-react";
+import { revealVariants } from "@/lib/motion";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
@@ -42,7 +43,12 @@ export function Contact() {
   return (
     <Section id="contato" className="py-24">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
-        <div>
+        <motion.div
+           variants={revealVariants}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold font-heading text-white mb-6">
             Vamos conversar sobre o seu cenário
           </h2>
@@ -66,78 +72,85 @@ export function Contact() {
                <Phone size={16} /> Falar no WhatsApp
              </Button>
           </div>
-        </div>
+        </motion.div>
 
-        <GlassCard className="p-8">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white">Nome</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Seu nome" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <motion.div
+           variants={revealVariants}
+           initial="hidden"
+           whileInView="visible"
+           viewport={{ once: true }}
+        >
+          <GlassCard className="p-8">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">E-mail</FormLabel>
+                      <FormLabel className="text-white">Nome</FormLabel>
                       <FormControl>
-                        <Input placeholder="seu@email.com" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
+                        <Input placeholder="Seu nome" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">E-mail</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">Telefone/WhatsApp</FormLabel>
+                        <FormControl>
+                          <Input placeholder="(11) 99999-9999" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">Telefone/WhatsApp</FormLabel>
+                      <FormLabel className="text-white">Mensagem</FormLabel>
                       <FormControl>
-                        <Input placeholder="(11) 99999-9999" {...field} className="bg-white/5 border-white/10 text-white focus:border-primary/50" />
+                        <Textarea 
+                          placeholder="Como podemos ajudar?" 
+                          {...field} 
+                          className="bg-white/5 border-white/10 text-white focus:border-primary/50 min-h-[120px]" 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white">Mensagem</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Como podemos ajudar?" 
-                        {...field} 
-                        className="bg-white/5 border-white/10 text-white focus:border-primary/50 min-h-[120px]" 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-[0_0_20px_rgba(45,169,225,0.3)]">
-                Enviar Mensagem
-              </Button>
-            </form>
-          </Form>
-        </GlassCard>
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-[0_0_20px_rgba(45,169,225,0.3)]">
+                  Enviar Mensagem
+                </Button>
+              </form>
+            </Form>
+          </GlassCard>
+        </motion.div>
       </div>
     </Section>
   );
