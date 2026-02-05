@@ -35,7 +35,7 @@ export function About() {
            viewport={{ once: true, margin: "-100px" }}
         >
           <GlassCard className="p-8 md:p-12 border-l-4 border-primary/50 relative mt-12 md:mt-0">
-            <div className="absolute -top-6 left-8 md:-left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/30 mt-[12px] mb-[12px]">
+            <div className="absolute -top-6 left-8 md:-left-6 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/30 mt-[12px] mb-[12px] ml-[-53px] mr-[-53px]">
               <Target className="text-white w-6 h-6" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-4 mt-4 md:mt-2 ml-[38px] mr-[38px]">Nossa Missão</h3>
