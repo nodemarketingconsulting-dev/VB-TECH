@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import ClientArea from "@/pages/ClientArea";
 import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
 import { CookieConsent } from "@/components/layout/CookieConsent";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 function Router() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <TooltipProvider>
         <Router />
         <CookieConsent />
+        <WhatsAppButton />
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>

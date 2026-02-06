@@ -1,11 +1,37 @@
 import { Section } from "@/components/ui/section";
 import { GlassCard } from "@/components/ui/glass-card";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export function PrivacyPolicy() {
   return (
     <>
       <ScrollToTop />
+      
+      {/* Simple Header with Back Button */}
+      <header className="fixed top-0 left-0 right-0 z-50 py-6 bg-black/50 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+          <Link href="/">
+            <a className="flex items-center gap-2 group cursor-pointer">
+              <div className="w-24 h-8 relative">
+                <img 
+                  src="/images/vb-tech-logo.png" 
+                  alt="VB Tech" 
+                  className="w-full h-full object-contain" 
+                />
+              </div>
+            </a>
+          </Link>
+          <Link href="/">
+            <Button variant="ghost" className="text-white hover:text-primary gap-2">
+              <ArrowLeft className="w-4 h-4" /> Voltar para Home
+            </Button>
+          </Link>
+        </div>
+      </header>
+
       <Section className="py-32 relative min-h-screen">
         <div className="max-w-4xl mx-auto px-4">
           <div className="mb-12 text-center">
@@ -192,6 +218,13 @@ export function PrivacyPolicy() {
               <p>
                 12.2. Em caso de alterações relevantes, a VBTech publicará a versão atualizada, indicando a data da última atualização e garantindo o acesso à nova versão.
               </p>
+            </div>
+            <div className="flex justify-center pt-8 border-t border-white/10 mt-12">
+              <Link href="/">
+                <Button className="bg-primary hover:bg-primary/90 text-white gap-2 px-8">
+                  <ArrowLeft className="w-4 h-4" /> Voltar para Página Inicial
+                </Button>
+              </Link>
             </div>
           </GlassCard>
         </div>
