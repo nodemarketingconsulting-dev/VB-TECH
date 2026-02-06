@@ -12,8 +12,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Phone, Mail } from "lucide-react";
 import { revealVariants } from "@/lib/motion";
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "wouter";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
@@ -165,7 +164,104 @@ export function Contact() {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-white font-normal cursor-pointer">
-                          Li e aceito a <Link href="/politica-privacidade"><a className="text-primary hover:underline">Política de Privacidade</a></Link>.
+                          Li e aceito a{" "}
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <span className="text-primary hover:underline cursor-pointer">Política de Privacidade</span>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/95 border-white/10 text-white">
+                              <DialogHeader>
+                                <DialogTitle className="text-2xl font-bold mb-4">POLÍTICA DE PRIVACIDADE — FORMULÁRIO DE CONTATO (LGPD)</DialogTitle>
+                                <DialogDescription className="text-muted-foreground text-left space-y-4">
+                                  <p>Última atualização: 05/02/2026</p>
+                                  
+                                  <p>A presente Política de Privacidade explica como a VB Tech (“Controladora”), coleta e utiliza dados pessoais quando você preenche nosso formulário de contato no site.</p>
+                                  
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">1) Quais dados coletamos</h4>
+                                    <p>Ao preencher e enviar o formulário, podemos coletar:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Nome</li>
+                                      <li>E-mail</li>
+                                      <li>Telefone/WhatsApp</li>
+                                      <li>Mensagem (conteúdo do que você escrever)</li>
+                                    </ul>
+                                    <p>Também podemos registrar informações técnicas para segurança e prevenção a fraudes/spam, como data e horário do envio, IP e informações básicas do navegador/dispositivo (quando disponíveis).</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">2) Para que usamos seus dados (finalidades)</h4>
+                                    <p>Seus dados são utilizados para:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Responder sua solicitação e prestar atendimento</li>
+                                      <li>Entender sua demanda e, quando aplicável, enviar informações, orçamento ou proposta</li>
+                                      <li>Dar continuidade ao relacionamento relacionado ao seu pedido (retornos, agendamentos e esclarecimentos)</li>
+                                      <li>Manter um histórico do atendimento para organização interna e melhoria do serviço</li>
+                                      <li>Proteger a Controladora contra fraudes, abusos e incidentes de segurança</li>
+                                    </ul>
+                                    <p>Não utilizamos seus dados para finalidades incompatíveis com as descritas acima.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">3) Base legal do tratamento</h4>
+                                    <p>O tratamento dos dados pode ocorrer com base em:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Procedimentos preliminares relacionados a contrato (ex.: retorno de orçamento/proposta)</li>
+                                      <li>Legítimo interesse (ex.: organizar e manter o histórico do atendimento e garantir segurança do site), sempre respeitando seus direitos e expectativas</li>
+                                      <li>Cumprimento de obrigação legal/regulatória, quando aplicável</li>
+                                    </ul>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">4) Compartilhamento de dados</h4>
+                                    <p>Podemos compartilhar seus dados somente quando necessário para viabilizar o atendimento e o funcionamento do site, com fornecedores e serviços como:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Hospedagem do site e infraestrutura</li>
+                                      <li>Plataformas de e-mail e atendimento/CRM (quando usadas)</li>
+                                      <li>Ferramentas de formulários e automação de mensagens (quando usadas)</li>
+                                      <li>Serviços de segurança/anti-spam</li>
+                                    </ul>
+                                    <p>Esses terceiros recebem apenas o mínimo necessário e são orientados a tratar os dados com segurança e apenas para as finalidades descritas nesta Política.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">5) Armazenamento e prazo de retenção</h4>
+                                    <p>Os dados serão armazenados pelo tempo necessário para:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Responder e concluir o atendimento da sua solicitação</li>
+                                      <li>Manter registro do contato e histórico do atendimento</li>
+                                      <li>Cumprir obrigações legais e resguardar direitos da Controladora</li>
+                                    </ul>
+                                    <p>Como referência operacional, a Controladora poderá manter registros de contato por até 12 (doze) meses após o último atendimento, salvo se houver necessidade de retenção por prazo maior por obrigação legal, exercício regular de direitos ou outra base legal aplicável.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">6) Seus direitos como titular</h4>
+                                    <p>Você pode solicitar, a qualquer momento:</p>
+                                    <ul className="list-disc pl-5">
+                                      <li>Confirmação do tratamento e acesso aos seus dados</li>
+                                      <li>Correção de dados incompletos, inexatos ou desatualizados</li>
+                                      <li>Informações sobre uso e compartilhamento</li>
+                                      <li>Eliminação de dados, quando cabível</li>
+                                      <li>Revogação de consentimento, quando essa for a base utilizada</li>
+                                    </ul>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">7) Como entrar em contato (Canal de Privacidade)</h4>
+                                    <p>Para dúvidas, solicitações ou exercício de direitos, fale com a Controladora:</p>
+                                    <p>E-mail: contato@vbtech.com.br</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">8) Segurança da informação</h4>
+                                    <p>Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados, perda, uso indevido, alteração ou divulgação. Ainda assim, nenhum sistema é totalmente livre de riscos.</p>
+                                  </div>
+                                </DialogDescription>
+                              </DialogHeader>
+                            </DialogContent>
+                          </Dialog>
+                          .
                         </FormLabel>
                         <p className="text-xs text-muted-foreground mt-2">
                           Usaremos seus dados apenas para responder sua mensagem e dar continuidade ao atendimento, conforme nossa Política de Privacidade.
