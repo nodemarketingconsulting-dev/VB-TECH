@@ -45,7 +45,7 @@ export function WhatsAppButton() {
             {/* Header */}
             <div className="bg-[#25D366] p-4 flex items-center justify-between text-white">
               <div className="flex items-center gap-3">
-                <MessageCircle className="w-6 h-6 fill-current" />
+                <img src="/images/whatsapp-icon.png" alt="WhatsApp" className="w-8 h-8 object-contain filter brightness-0 invert" />
                 <div>
                   <h3 className="font-bold">Fale conosco</h3>
                   <p className="text-xs opacity-90">Preencha para iniciar a conversa</p>
@@ -119,7 +119,11 @@ export function WhatsAppButton() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {isOpen ? <X className="w-8 h-8" /> : <MessageCircle className="w-8 h-8 fill-current" />}
+        {isOpen ? (
+          <X className="w-8 h-8" />
+        ) : (
+          <img src="/images/whatsapp-icon.png" alt="WhatsApp" className="w-8 h-8 object-contain filter brightness-0 invert" />
+        )}
         {!isOpen && (
           <span className="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
             Fale conosco no WhatsApp
