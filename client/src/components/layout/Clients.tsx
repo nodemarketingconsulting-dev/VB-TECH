@@ -60,11 +60,11 @@ export function Clients() {
             <div className="flex -ml-8 items-center">
               {CLIENTS.map((client, index) => (
                 <div key={index} className="flex-[0_0_150px] md:flex-[0_0_200px] min-w-0 pl-8">
-                  <div className="h-24 md:h-32 bg-white/5 rounded-xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all flex items-center justify-center p-4 group">
+                  <div className="h-24 md:h-32 bg-white rounded-xl border border-white/10 shadow-lg flex items-center justify-center p-4 hover:scale-105 transition-transform duration-300">
                     <img 
                       src={client.logo} 
                       alt={client.name} 
-                      className="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 filter brightness-200 contrast-0 group-hover:brightness-100 group-hover:contrast-100" 
+                      className="max-w-full max-h-full object-contain" 
                     />
                   </div>
                 </div>
