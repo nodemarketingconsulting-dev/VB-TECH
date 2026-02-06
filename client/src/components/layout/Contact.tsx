@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -9,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { GlassCard } from "@/components/ui/glass-card";
-import { Phone, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { revealVariants } from "@/lib/motion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -24,8 +26,15 @@ const formSchema = z.object({
   }),
 });
 
+const whatsAppFormSchema = z.object({
+  name: z.string().min(2, "Nome é obrigatório"),
+  phone: z.string().min(8, "Telefone inválido"),
+});
+
 export function Contact() {
   const { toast } = useToast();
+  const [isWhatsAppDialogOpen, setIsWhatsAppDialogOpen] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,6 +43,14 @@ export function Contact() {
       phone: "",
       message: "",
       privacy: false,
+    },
+  });
+
+  const whatsAppForm = useForm<z.infer<typeof whatsAppFormSchema>>({
+    resolver: zodResolver(whatsAppFormSchema),
+    defaultValues: {
+      name: "",
+      phone: "",
     },
   });
 
@@ -56,6 +73,16 @@ ${values.message}`;
     });
     
     form.reset();
+  }
+
+  function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
+    const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
+    
+    const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
+    
+    window.open(whatsappUrl, "_blank");
+    setIsWhatsAppDialogOpen(false);
+    whatsAppForm.reset();
   }
 
   return (
@@ -82,13 +109,57 @@ ${values.message}`;
                <span>Resposta rápida em horário comercial.</span>
              </div>
              
-             <Button 
-               variant="outline" 
-               className="w-full md:w-auto gap-2 border-primary/50 text-primary hover:bg-primary/10 hover:text-primary"
-               onClick={() => window.open("https://wa.me/551142570789", "_blank")}
-             >
-               <Phone size={16} /> Falar no WhatsApp
-             </Button>
+             <Dialog open={isWhatsAppDialogOpen} onOpenChange={setIsWhatsAppDialogOpen}>
+               <DialogTrigger asChild>
+                 <Button 
+                   variant="outline" 
+                   className="w-full md:w-auto gap-2 border-primary/50 text-primary hover:bg-primary/10 hover:text-primary"
+                 >
+                   <MessageCircle size={16} /> Falar no WhatsApp
+                 </Button>
+               </DialogTrigger>
+               <DialogContent className="bg-black/95 border-white/10 text-white sm:max-w-md">
+                 <DialogHeader>
+                   <DialogTitle>Falar no WhatsApp</DialogTitle>
+                   <DialogDescription>
+                     Preencha seus dados para iniciar a conversa.
+                   </DialogDescription>
+                 </DialogHeader>
+                 <Form {...whatsAppForm}>
+                   <form onSubmit={whatsAppForm.handleSubmit(onWhatsAppSubmit)} className="space-y-4">
+                     <FormField
+                       control={whatsAppForm.control}
+                       name="name"
+                       render={({ field }) => (
+                         <FormItem>
+                           <FormLabel>Nome</FormLabel>
+                           <FormControl>
+                             <Input placeholder="Seu nome" {...field} className="bg-white/5 border-white/10 text-white" />
+                           </FormControl>
+                           <FormMessage />
+                         </FormItem>
+                       )}
+                     />
+                     <FormField
+                       control={whatsAppForm.control}
+                       name="phone"
+                       render={({ field }) => (
+                         <FormItem>
+                           <FormLabel>Telefone</FormLabel>
+                           <FormControl>
+                             <Input placeholder="(11) 99999-9999" {...field} className="bg-white/5 border-white/10 text-white" />
+                           </FormControl>
+                           <FormMessage />
+                         </FormItem>
+                       )}
+                     />
+                     <Button type="submit" className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                       Iniciar Conversa
+                     </Button>
+                   </form>
+                 </Form>
+               </DialogContent>
+             </Dialog>
           </div>
         </motion.div>
 
