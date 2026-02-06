@@ -9,6 +9,9 @@ import ClientArea from "@/pages/ClientArea";
 import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Router() {
   return (
@@ -22,13 +25,43 @@ function Router() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate initial loading / security check
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Router />
-        <CookieConsent />
-        <WhatsAppButton />
-        <Toaster />
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <motion.div
+              key="loading"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <LoadingScreen />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="app"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Router />
+              <CookieConsent />
+              <WhatsAppButton />
+              <Toaster />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </TooltipProvider>
     </QueryClientProvider>
   );
