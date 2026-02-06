@@ -73,13 +73,13 @@ export function Header() {
               {item.name}
             </a>
           ))}
-          <Link href="/cliente">
+          <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
             <Button 
               className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 shadow-[0_0_15px_rgba(45,169,225,0.3)] hover:shadow-[0_0_25px_rgba(45,169,225,0.5)] transition-all transform hover:-translate-y-0.5"
             >
               Área do Cliente
             </Button>
-          </Link>
+          </a>
         </nav>
 
         {/* Mobile Toggle */}
@@ -109,11 +109,11 @@ export function Header() {
                   {item.name}
                 </a>
               ))}
-              <Link href="/cliente">
+              <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
                 <Button className="w-full bg-primary hover:bg-primary/90 text-white mt-4">
                   Área do Cliente <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
-              </Link>
+              </a>
             </motion.div>
           )}
         </AnimatePresence>

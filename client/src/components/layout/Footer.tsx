@@ -38,7 +38,7 @@ export function Footer() {
               <li><a href="#sobre" className="text-muted-foreground hover:text-primary transition-colors">Sobre</a></li>
               <li><a href="#solucoes" className="text-muted-foreground hover:text-primary transition-colors">Soluções</a></li>
               <li><a href="#clientes" className="text-muted-foreground hover:text-primary transition-colors">Clientes</a></li>
-              <li><Link href="/cliente"><a className="text-primary hover:text-primary/80 transition-colors">Área do Cliente</a></Link></li>
+              <li><a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">Área do Cliente</a></li>
             </ul>
           </div>
 
