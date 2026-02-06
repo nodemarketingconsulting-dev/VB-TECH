@@ -255,7 +255,7 @@ export function Contact() {
                                     <p>Para dúvidas, solicitações ou exercício de direitos, fale com a Controladora:</p>
                                     <p>E-mail: contato@vbtech.com.br</p>
                                     <p>WhatsApp/Telefone: +55 (11) 99999-9999</p>
-                                    <p>Endereço: São Paulo, SP - Brasil</p>
+                                    <p>Endereço: AVENIDA DOS AUTONOMISTAS, 2561 SALA 12 13 14, CENTRO, CEP 06090-020, 6789 - SP</p>
                                   </div>
 
                                   <div className="space-y-2">
