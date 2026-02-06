@@ -48,21 +48,18 @@ export function Technologies() {
               key={index}
               variants={revealVariants}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="group relative bg-[#0f172a] rounded-xl p-6 h-36 flex items-center justify-center transition-all duration-500 border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] overflow-hidden cursor-default"
+              className="group relative bg-[#1e293b] rounded-xl p-6 h-36 flex items-center justify-center transition-all duration-500 border border-white/5 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] overflow-hidden cursor-default"
             >
-              {/* Dynamic Glow Effect Background - Neutral white/gray for universal contrast */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-100 transition-opacity duration-500" />
+              {/* Subtle Gradient Background - No Blur */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-100" />
               
-              {/* Central Light Orb - White to backlight dark logos and lift colored ones */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/5 blur-[40px] rounded-full group-hover:bg-white/10 transition-all duration-500" />
-
               <img 
                 src={partner.logo} 
                 alt={partner.name}
-                className="relative z-10 max-w-[85%] max-h-[80%] object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-[0_0_2px_rgba(255,255,255,0.6)]"
+                className="relative z-10 max-w-[85%] max-h-[80%] object-contain transition-all duration-500 group-hover:scale-110"
               />
               
-              {/* Bottom Line Accent */}
+              {/* Crisp Bottom Line Accent */}
               <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
             </motion.div>
           ))}
