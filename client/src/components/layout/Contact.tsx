@@ -38,15 +38,21 @@ export function Contact() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const text = `*Novo contato pelo site VB Tech*\n\n*Nome:* ${values.name}\n*Email:* ${values.email}\n*Telefone:* ${values.phone}\n*Mensagem:* ${values.message}`;
+    const subject = `Novo Lead via Site - ${values.name}`;
+    const body = `Nome: ${values.name}
+Email: ${values.email}
+Telefone: ${values.phone}
+
+Mensagem:
+${values.message}`;
+
+    const mailtoUrl = `mailto:contato@vbtech.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
-    const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
-    
-    window.open(whatsappUrl, "_blank");
+    window.location.href = mailtoUrl;
     
     toast({
-      title: "Redirecionando para o WhatsApp...",
-      description: "Complete o envio da mensagem pelo aplicativo.",
+      title: "Abrindo seu cliente de e-mail...",
+      description: "Por favor, clique em enviar no seu aplicativo de e-mail para finalizar.",
     });
     
     form.reset();
