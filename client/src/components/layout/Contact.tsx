@@ -65,6 +65,21 @@ ${values.message}`;
 
     const mailtoUrl = `mailto:contato@vbtech.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
+    // Save to local storage for "database" demo
+    const newLead = {
+      id: Date.now().toString(),
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      message: values.message,
+      source: "Site Contact Form",
+      date: new Date().toISOString(),
+    };
+    
+    const existingLeads = localStorage.getItem("vbtech_leads");
+    const leads = existingLeads ? JSON.parse(existingLeads) : [];
+    localStorage.setItem("vbtech_leads", JSON.stringify([...leads, newLead]));
+    
     window.location.href = mailtoUrl;
     
     toast({

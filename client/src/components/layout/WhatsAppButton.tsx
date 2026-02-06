@@ -27,6 +27,20 @@ export function WhatsAppButton() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const text = `*Novo contato via Site*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
     const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
+    
+    // Save to local storage for "database" demo
+    const newLead = {
+      id: Date.now().toString(),
+      name: values.name,
+      phone: values.phone,
+      source: "WhatsApp",
+      date: new Date().toISOString(),
+    };
+    
+    const existingLeads = localStorage.getItem("vbtech_leads");
+    const leads = existingLeads ? JSON.parse(existingLeads) : [];
+    localStorage.setItem("vbtech_leads", JSON.stringify([...leads, newLead]));
+
     window.open(whatsappUrl, "_blank");
     setIsOpen(false);
     form.reset();

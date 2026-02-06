@@ -10,6 +10,7 @@ import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { LoadingScreen } from "@/components/ui/loading-screen";
+import LeadsAdmin from "@/pages/LeadsAdmin";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -18,6 +19,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/cliente" component={ClientArea} />
+      <Route path="/leadsrespostas" component={LeadsAdmin} />
       <Route path="/politica-privacidade" component={PrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>
