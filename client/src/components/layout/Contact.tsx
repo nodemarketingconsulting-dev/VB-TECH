@@ -12,11 +12,17 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Phone, Mail } from "lucide-react";
 import { revealVariants } from "@/lib/motion";
 
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "wouter";
+
 const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
   email: z.string().email("E-mail inválido"),
   phone: z.string().min(8, "Telefone inválido"),
   message: z.string().min(10, "Mensagem muito curta"),
+  privacy: z.boolean().refine((val) => val === true, {
+    message: "Você precisa aceitar a Política de Privacidade",
+  }),
 });
 
 export function Contact() {
@@ -28,6 +34,7 @@ export function Contact() {
       email: "",
       phone: "",
       message: "",
+      privacy: false,
     },
   });
 
@@ -140,6 +147,30 @@ export function Contact() {
                         />
                       </FormControl>
                       <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="privacy"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-2">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:text-white"
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel className="text-white font-normal cursor-pointer">
+                          Li e aceito a <Link href="/politica-privacidade"><a className="text-primary hover:underline">Política de Privacidade</a></Link>.
+                        </FormLabel>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Usaremos seus dados apenas para responder sua mensagem e dar continuidade ao atendimento, conforme nossa Política de Privacidade.
+                        </p>
+                      </div>
                     </FormItem>
                   )}
                 />
