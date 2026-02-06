@@ -47,20 +47,23 @@ export function Technologies() {
             <motion.div 
               key={index}
               variants={revealVariants}
-              whileHover={{ scale: 1.05 }}
-              className="group relative bg-white/95 backdrop-blur-md rounded-xl p-6 h-32 flex items-center justify-center transition-all duration-300 border border-primary/20 hover:border-primary hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] overflow-hidden cursor-default"
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="group relative bg-[#0B1120] rounded-xl p-6 h-36 flex items-center justify-center transition-all duration-500 border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] overflow-hidden cursor-default"
             >
-              {/* Blue accent background effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Dynamic Glow Effect Background */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
+              {/* Central Light Orb for Contrast */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-blue-500/20 blur-[40px] rounded-full group-hover:bg-cyan-400/30 transition-all duration-500" />
+
               <img 
                 src={partner.logo} 
                 alt={partner.name}
-                className="relative z-10 max-w-[85%] max-h-[80%] object-contain filter transition-all duration-300 group-hover:brightness-110"
+                className="relative z-10 max-w-[85%] max-h-[80%] object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]"
               />
               
-              {/* Shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/80 to-transparent translate-x-[-200%] group-hover:animate-shine z-20 pointer-events-none" />
+              {/* Bottom Line Accent */}
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
             </motion.div>
           ))}
         </motion.div>
