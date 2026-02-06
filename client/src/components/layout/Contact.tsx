@@ -38,11 +38,17 @@ export function Contact() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const text = `*Novo contato pelo site VB Tech*\n\n*Nome:* ${values.name}\n*Email:* ${values.email}\n*Telefone:* ${values.phone}\n*Mensagem:* ${values.message}`;
+    
+    const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
+    
+    window.open(whatsappUrl, "_blank");
+    
     toast({
-      title: "Mensagem enviada!",
-      description: "A VB Tech retornará em breve.",
+      title: "Redirecionando para o WhatsApp...",
+      description: "Complete o envio da mensagem pelo aplicativo.",
     });
+    
     form.reset();
   }
 
