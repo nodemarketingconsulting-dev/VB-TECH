@@ -24,7 +24,7 @@ export function Footer() {
               Gestão de TI com estabilidade, segurança e controle para o seu negócio crescer sem barreiras.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-primary hover:bg-white/5 transition-colors">
+              <a href="https://br.linkedin.com/company/vbtech-ti" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-primary hover:bg-white/5 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-primary hover:bg-white/5 transition-colors">
