@@ -48,9 +48,9 @@ export function Header() {
         isScrolled ? "glass-header py-3" : "bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between relative">
         <Link href="/">
-          <a className="flex items-center gap-2 group cursor-pointer">
+          <a className="flex items-center gap-2 group cursor-pointer flex-shrink-0">
             <div className="w-32 h-10 md:w-40 md:h-12 relative">
               <img 
                 src="/images/vb-tech-logo.png" 
@@ -61,34 +61,40 @@ export function Header() {
           </a>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-6">
+        {/* Desktop Nav - Centered */}
+        <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.name}
               href={item.href}
               onClick={(e) => handleScrollToSection(e, item.href)}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:glow-text"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:glow-text whitespace-nowrap"
             >
               {item.name}
             </a>
           ))}
-          <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
-            <Button 
-              className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 shadow-[0_0_15px_rgba(45,169,225,0.3)] hover:shadow-[0_0_25px_rgba(45,169,225,0.5)] transition-all transform hover:-translate-y-0.5"
-            >
-              Área do Cliente
-            </Button>
-          </a>
         </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="lg:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
+        {/* Right Actions */}
+        <div className="flex items-center gap-4">
+          <div className="hidden lg:block">
+            <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 shadow-[0_0_15px_rgba(45,169,225,0.3)] hover:shadow-[0_0_25px_rgba(45,169,225,0.5)] transition-all transform hover:-translate-y-0.5"
+              >
+                Área do Cliente
+              </Button>
+            </a>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="lg:hidden text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
