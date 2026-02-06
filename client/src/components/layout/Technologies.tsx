@@ -1,53 +1,69 @@
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/section";
-import { GlassCard } from "@/components/ui/glass-card";
 import { revealVariants, staggerContainer } from "@/lib/motion";
 
-const TECHS = [
-  "Microsoft 365",
-  "Bitdefender",
-  "Fortinet",
-  "GoTo",
-  "HD Telecom"
+const PARTNERS = [
+  { name: "Microsoft", logo: "/images/partners/microsoft.png" },
+  { name: "Bitdefender", logo: "/images/partners/bitdefender.png" },
+  { name: "Fortinet", logo: "/images/partners/fortinet.png" },
+  { name: "GoTo", logo: "/images/partners/goto.png" },
+  { name: "HD Telecom", logo: "/images/partners/hd_telecom.png" },
+  { name: "Ubiquiti", logo: "/images/partners/ubiquiti.png" },
+  { name: "Partner", logo: "/images/partners/shield_logo.png" }, // Using generic name as requested to hide text
+  { name: "Partner", logo: "/images/partners/block_h.png" },
 ];
 
 export function Technologies() {
   return (
-    <Section id="tecnologias" className="py-20 bg-black/50">
-      <div className="text-center mb-12">
-        <motion.div
-           variants={revealVariants}
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true }}
+    <Section id="tecnologias" className="py-24 bg-black/50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-30" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <motion.div
+             variants={revealVariants}
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-6">
+              Tecnologias e Parceiros
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              Trabalhamos com as melhores soluções do mercado para garantir a excelência.
+            </p>
+          </motion.div>
+        </div>
+
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
-          <h2 className="text-3xl font-bold font-heading text-white mb-4">
-            Tecnologias e Parceiros
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Trabalhamos com soluções reconhecidas para entregar estabilidade, segurança e suporte com qualidade.
-          </p>
+          {PARTNERS.map((partner, index) => (
+            <motion.div 
+              key={index}
+              variants={revealVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group relative bg-white rounded-2xl p-6 h-32 flex items-center justify-center shadow-lg hover:shadow-primary/20 transition-all duration-300 overflow-hidden cursor-default"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50 opacity-100 group-hover:opacity-90 transition-opacity" />
+              
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                className="relative z-10 max-w-full max-h-full object-contain filter transition-all duration-300 drop-shadow-sm group-hover:drop-shadow-md"
+              />
+              
+              {/* Subtle shine effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:animate-shine z-20 pointer-events-none" />
+            </motion.div>
+          ))}
         </motion.div>
       </div>
-
-      <motion.div 
-        className="flex flex-wrap justify-center gap-6"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-      >
-        {TECHS.map((tech, index) => (
-          <GlassCard 
-            key={index}
-            hoverEffect
-            variants={revealVariants}
-            className="px-8 py-4 flex items-center justify-center min-w-[150px]"
-          >
-             <span className="font-bold text-white/70 hover:text-white transition-colors">{tech}</span>
-          </GlassCard>
-        ))}
-      </motion.div>
     </Section>
   );
 }
