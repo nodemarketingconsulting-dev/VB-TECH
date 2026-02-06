@@ -48,18 +48,18 @@ export function Technologies() {
               key={index}
               variants={revealVariants}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="group relative bg-[#1e293b] rounded-xl p-6 h-36 flex items-center justify-center transition-all duration-500 border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] overflow-hidden cursor-default"
+              className="group relative bg-[#0f172a] rounded-xl p-6 h-36 flex items-center justify-center transition-all duration-500 border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] overflow-hidden cursor-default"
             >
-              {/* Dynamic Glow Effect Background - Lighter in center */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-[#1e293b] to-[#1e293b] opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Dynamic Glow Effect Background - Neutral white/gray for universal contrast */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-100 transition-opacity duration-500" />
               
-              {/* Central Light Orb for Contrast - Stronger for dark logos */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-blue-400/20 blur-[30px] rounded-full group-hover:bg-cyan-400/30 transition-all duration-500" />
+              {/* Central Light Orb - White to backlight dark logos and lift colored ones */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white/5 blur-[40px] rounded-full group-hover:bg-white/10 transition-all duration-500" />
 
               <img 
                 src={partner.logo} 
                 alt={partner.name}
-                className="relative z-10 max-w-[85%] max-h-[80%] object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(255,255,255,0.25)]"
+                className="relative z-10 max-w-[85%] max-h-[80%] object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-[0_0_2px_rgba(255,255,255,0.6)]"
               />
               
               {/* Bottom Line Accent */}
