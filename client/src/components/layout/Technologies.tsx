@@ -47,20 +47,20 @@ export function Technologies() {
             <motion.div 
               key={index}
               variants={revealVariants}
-              whileHover={{ y: -5 }}
-              className="group relative bg-black border border-white/10 rounded-xl p-6 h-32 flex items-center justify-center transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(var(--primary),0.15)] overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              className="group relative bg-white/95 backdrop-blur-md rounded-xl p-6 h-32 flex items-center justify-center transition-all duration-300 border border-primary/20 hover:border-primary hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] overflow-hidden cursor-default"
             >
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Blue accent background effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               <img 
                 src={partner.logo} 
                 alt={partner.name}
-                className="relative z-10 max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-all duration-300"
+                className="relative z-10 max-w-[85%] max-h-[80%] object-contain filter transition-all duration-300 group-hover:brightness-110"
               />
               
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white/10 group-hover:border-primary/50 transition-colors" />
-              <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-white/10 group-hover:border-primary/50 transition-colors" />
+              {/* Shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/80 to-transparent translate-x-[-200%] group-hover:animate-shine z-20 pointer-events-none" />
             </motion.div>
           ))}
         </motion.div>
