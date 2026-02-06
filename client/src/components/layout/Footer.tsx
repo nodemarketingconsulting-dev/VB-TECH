@@ -54,11 +54,11 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary shrink-0 mt-1" />
-                <span>AVENIDA DOS AUTONOMISTAS, 2561 SALA 12 13 14, CENTRO, CEP 06090-020, 6789 - SP</span>
+                <span>Avenida dos Autonomistas, 2561, Sala 12 13 14, Centro, CEP 06090-020, 6789 - SP</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Phone className="w-5 h-5 text-primary shrink-0" />
-                <span>+55 (11) 99999-9999</span>
+                <span>(11) 4257-0789</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary shrink-0" />

@@ -73,7 +73,7 @@ export function Contact() {
              <Button 
                variant="outline" 
                className="w-full md:w-auto gap-2 border-primary/50 text-primary hover:bg-primary/10 hover:text-primary"
-               onClick={() => window.open("https://wa.me/5511999999999", "_blank")}
+               onClick={() => window.open("https://wa.me/551142570789", "_blank")}
              >
                <Phone size={16} /> Falar no WhatsApp
              </Button>
@@ -254,8 +254,8 @@ export function Contact() {
                                     <h4 className="font-bold text-white">7) Como entrar em contato (Canal de Privacidade)</h4>
                                     <p>Para dúvidas, solicitações ou exercício de direitos, fale com a Controladora:</p>
                                     <p>E-mail: contato@vbtech.com.br</p>
-                                    <p>WhatsApp/Telefone: +55 (11) 99999-9999</p>
-                                    <p>Endereço: AVENIDA DOS AUTONOMISTAS, 2561 SALA 12 13 14, CENTRO, CEP 06090-020, 6789 - SP</p>
+                                    <p>WhatsApp/Telefone: (11) 4257-0789</p>
+                                    <p>Endereço: Avenida dos Autonomistas, 2561, Sala 12 13 14, Centro, CEP 06090-020, 6789 - SP</p>
                                   </div>
 
                                   <div className="space-y-2">
