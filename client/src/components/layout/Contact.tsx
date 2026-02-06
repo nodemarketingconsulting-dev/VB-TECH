@@ -175,7 +175,7 @@ export function Contact() {
                                 <DialogDescription className="text-muted-foreground text-left space-y-4">
                                   <p>Última atualização: 05/02/2026</p>
                                   
-                                  <p>A presente Política de Privacidade explica como a VB Tech (“Controladora”), coleta e utiliza dados pessoais quando você preenche nosso formulário de contato no site.</p>
+                                  <p>A presente Política de Privacidade explica como a VB Tech, (“Controladora”), coleta e utiliza dados pessoais quando você preenche nosso formulário de contato no site.</p>
                                   
                                   <div className="space-y-2">
                                     <h4 className="font-bold text-white">1) Quais dados coletamos</h4>
@@ -210,6 +210,7 @@ export function Contact() {
                                       <li>Legítimo interesse (ex.: organizar e manter o histórico do atendimento e garantir segurança do site), sempre respeitando seus direitos e expectativas</li>
                                       <li>Cumprimento de obrigação legal/regulatória, quando aplicável</li>
                                     </ul>
+                                    <p>Observação: caso a Controladora ofereça comunicações promocionais (marketing), isso deve ser feito com opção específica e destacada, quando aplicável.</p>
                                   </div>
 
                                   <div className="space-y-2">
@@ -244,18 +245,37 @@ export function Contact() {
                                       <li>Informações sobre uso e compartilhamento</li>
                                       <li>Eliminação de dados, quando cabível</li>
                                       <li>Revogação de consentimento, quando essa for a base utilizada</li>
+                                      <li>Outros direitos previstos na legislação aplicável</li>
                                     </ul>
+                                    <p>As solicitações serão atendidas conforme os prazos e requisitos legais.</p>
                                   </div>
 
                                   <div className="space-y-2">
                                     <h4 className="font-bold text-white">7) Como entrar em contato (Canal de Privacidade)</h4>
                                     <p>Para dúvidas, solicitações ou exercício de direitos, fale com a Controladora:</p>
                                     <p>E-mail: contato@vbtech.com.br</p>
+                                    <p>WhatsApp/Telefone: +55 (11) 99999-9999</p>
+                                    <p>Endereço: São Paulo, SP - Brasil</p>
                                   </div>
 
                                   <div className="space-y-2">
                                     <h4 className="font-bold text-white">8) Segurança da informação</h4>
                                     <p>Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados, perda, uso indevido, alteração ou divulgação. Ainda assim, nenhum sistema é totalmente livre de riscos.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">9) Links externos</h4>
+                                    <p>Nosso site pode conter links para sites de terceiros. Não somos responsáveis pelas práticas de privacidade desses ambientes. Recomendamos que você leia as políticas deles ao acessar.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">10) Alterações desta Política</h4>
+                                    <p>Esta Política pode ser atualizada a qualquer momento para refletir melhorias, alterações legais ou mudanças de operação. A versão vigente será sempre a publicada nesta página, com data de atualização.</p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <h4 className="font-bold text-white">DECLARAÇÃO DE CIÊNCIA</h4>
+                                    <p>Ao marcar “Li e aceito a Política de Privacidade” no formulário, você declara que leu e está ciente das condições acima, autorizando o uso dos seus dados para fins de atendimento e retorno do contato.</p>
                                   </div>
                                 </DialogDescription>
                               </DialogHeader>
