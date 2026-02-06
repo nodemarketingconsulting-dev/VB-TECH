@@ -7,7 +7,7 @@ const PARTNERS = [
   { name: "Bitdefender", logo: "/images/partners/bitdefender.png" },
   { name: "Fortinet", logo: "/images/partners/fortinet.png" },
   { name: "GoTo", logo: "/images/partners/goto.png" },
-  { name: "HD Telecom", logo: "/images/partners/hd_telecom.png" },
+  { name: "Dell", logo: "/images/partners/dell.png" },
   { name: "Ubiquiti", logo: "/images/partners/ubiquiti.png" },
   { name: "Partner", logo: "/images/partners/shield_logo.png" }, // Using generic name as requested to hide text
   { name: "Partner", logo: "/images/partners/block_h.png" },
