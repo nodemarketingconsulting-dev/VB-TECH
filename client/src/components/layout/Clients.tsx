@@ -30,6 +30,7 @@ const CLIENTS = [
   { name: "STEM Consultoria", logo: "/images/clients/stem.png" },
   { name: "IPEX", logo: "/images/clients/ipex.png" },
   { name: "Maria K", logo: "/images/clients/mariak.png" },
+  { name: "Metaltela", logo: "/images/clients/metaltela.png" },
 ];
 
 export function Clients() {
