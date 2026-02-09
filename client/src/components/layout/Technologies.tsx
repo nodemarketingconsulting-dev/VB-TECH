@@ -42,7 +42,7 @@ export function Technologies() {
         </div>
 
         <div className="space-y-8 overflow-hidden">
-          {/* Row 1 - Moving Right */}
+          {/* Single Row - Moving Right */}
           <div className="relative w-full">
             <motion.div 
               className="flex gap-6 w-max"
@@ -73,42 +73,6 @@ export function Technologies() {
               ))}
             </motion.div>
             
-            {/* Fade edges */}
-            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent z-10" />
-          </div>
-
-          {/* Row 2 - Moving Left */}
-          <div className="relative w-full">
-            <motion.div 
-              className="flex gap-6 w-max"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ 
-                duration: 40, 
-                repeat: Infinity, 
-                ease: "linear" 
-              }}
-            >
-              {ROW_1.map((partner, index) => (
-                <div 
-                  key={`row2-${index}`}
-                  className="w-[200px] md:w-[240px] bg-[#1e293b] rounded-xl p-4 md:p-6 h-24 md:h-32 flex items-center justify-center border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)] relative overflow-hidden group shrink-0"
-                >
-                  {/* Subtle Gradient Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-100" />
-                  
-                  <img 
-                    src={partner.logo} 
-                    alt={partner.name}
-                    className="relative z-10 max-w-[85%] max-h-[80%] object-contain"
-                  />
-                  
-                  {/* Bottom Line Accent */}
-                  <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-                </div>
-              ))}
-            </motion.div>
-
             {/* Fade edges */}
             <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
             <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent z-10" />
