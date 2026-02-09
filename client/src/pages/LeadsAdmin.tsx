@@ -71,6 +71,56 @@ export default function LeadsAdmin() {
     (lead.email && lead.email.toLowerCase().includes(searchTerm.toLowerCase()))
   ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  const handleExport = () => {
+    if (leads.length === 0) {
+      toast({
+        title: "Sem dados",
+        description: "Não há leads para exportar.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Define CSV headers
+    const headers = ["Data", "Nome", "Telefone", "Email", "Origem", "Mensagem"];
+    
+    // Map leads to CSV rows
+    const csvContent = [
+      headers.join(","),
+      ...leads.map(lead => {
+        const date = new Date(lead.date).toLocaleString('pt-BR');
+        // Handle fields that might contain commas
+        const cleanName = `"${lead.name.replace(/"/g, '""')}"`;
+        const cleanMessage = lead.message ? `"${lead.message.replace(/"/g, '""').replace(/\n/g, ' ')}"` : '""';
+        const cleanEmail = lead.email ? `"${lead.email}"` : '""';
+        
+        return [
+          `"${date}"`,
+          cleanName,
+          `"${lead.phone}"`,
+          cleanEmail,
+          `"${lead.source}"`,
+          cleanMessage
+        ].join(",");
+      })
+    ].join("\n");
+
+    // Create download link
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `vbtech_leads_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    toast({
+      title: "Exportação concluída",
+      description: "O arquivo CSV foi baixado com sucesso.",
+    });
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -134,7 +184,11 @@ export default function LeadsAdmin() {
                  className="pl-9 bg-white/5 border-white/10 text-white"
                />
              </div>
-             <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10">
+             <Button 
+               variant="outline" 
+               className="border-primary/30 text-primary hover:bg-primary/10"
+               onClick={handleExport}
+             >
                <Download className="w-4 h-4 mr-2" /> Exportar
              </Button>
            </div>
