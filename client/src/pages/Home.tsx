@@ -21,9 +21,9 @@ export default function Home() {
         <About />
         <Method />
         <Solutions />
+        <Technologies />
         <Benefits />
         <HowWeWork />
-        <Technologies />
         <Clients />
         <Contact />
       </main>
