@@ -2,17 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Section } from "@/components/ui/section";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy, FileText, Check, Plus, Trash } from "lucide-react";
-import { Link } from "wouter";
+import { Copy, FileText, Check, Plus, Trash, Lock, Shield } from "lucide-react";
 
 // Schema for the proposal data
 const proposalSchema = z.object({
@@ -40,6 +36,8 @@ export type ProposalData = z.infer<typeof proposalSchema> & { id: string; create
 
 export default function ProposalCreator() {
   const { toast } = useToast();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [scopeFields, setScopeFields] = useState([{ title: "", description: "" }]);
 
@@ -93,6 +91,26 @@ export default function ProposalCreator() {
     });
   }
 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        setIsAuthenticated(true);
+        toast({ title: "Acesso Permitido", description: "Bem-vindo ao gerador de propostas." });
+      } else {
+        toast({ variant: "destructive", title: "Acesso Negado", description: "Senha incorreta." });
+      }
+    } catch {
+      toast({ variant: "destructive", title: "Erro", description: "Falha na conexão." });
+    }
+  };
+
   const copyToClipboard = () => {
     if (generatedLink) {
       navigator.clipboard.writeText(generatedLink);
@@ -102,6 +120,41 @@ export default function ProposalCreator() {
       });
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0077be_1px,transparent_1px),linear-gradient(to_bottom,#0077be_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
+        <GlassCard className="w-full max-w-md p-8 border-primary/20">
+          <div className="flex flex-col items-center text-center mb-8">
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 border border-primary/30">
+              <Lock className="w-8 h-8 text-primary" />
+            </div>
+            <h1 className="text-2xl font-bold text-white font-heading" data-testid="text-proposal-title">Área Restrita</h1>
+            <p className="text-muted-foreground mt-2">Gerador de Propostas VB Tech</p>
+          </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="space-y-2">
+              <Input
+                type="password"
+                placeholder="Senha de acesso"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-white/5 border-white/10 text-white text-center tracking-widest"
+                data-testid="input-proposal-password"
+              />
+            </div>
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90" data-testid="button-proposal-login">
+              <Shield className="w-4 h-4 mr-2" /> Acessar
+            </Button>
+          </form>
+          <p className="text-xs text-center text-muted-foreground mt-6">
+            Ambiente Seguro
+          </p>
+        </GlassCard>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 pt-24">
