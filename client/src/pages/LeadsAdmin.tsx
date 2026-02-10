@@ -40,7 +40,7 @@ export default function LeadsAdmin() {
     e.preventDefault();
     // Simple client-side check for prototype demonstration
     // In a real app, this would be a secure server-side check
-    if (password === "vbtech2026") {
+    if (password === "Leo@20082017") {
       setIsAuthenticated(true);
       toast({
         title: "Acesso Permitido",
