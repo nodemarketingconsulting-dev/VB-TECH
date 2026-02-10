@@ -91,20 +91,28 @@ export function Contact() {
     const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
     const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
 
-    const leadData = JSON.stringify({
-      name: values.name,
-      phone: values.phone,
-      source: "WhatsApp",
-    });
-
-    navigator.sendBeacon("/api/leads", new Blob([leadData], { type: "application/json" }));
-
     setIsWhatsAppDialogOpen(false);
-    whatsAppForm.reset();
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          phone: values.phone,
+          source: "WhatsApp",
+        }),
+        keepalive: true,
+      });
+      if (!response.ok) {
+        console.error("Erro ao salvar lead WhatsApp:", response.status);
+      }
+    } catch (e) {
+      console.error("Erro ao salvar lead WhatsApp:", e);
+    } finally {
+      whatsAppForm.reset();
       window.open(whatsappUrl, "_blank");
-    }, 300);
+    }
   }
 
   return (
