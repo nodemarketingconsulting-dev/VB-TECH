@@ -87,11 +87,22 @@ export function Contact() {
     }
   }
 
-  function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
+  async function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          phone: values.phone,
+          source: "WhatsApp",
+        }),
+      });
+    } catch (e) {
+    }
+
     const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
-    
     const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
-    
     window.open(whatsappUrl, "_blank");
     setIsWhatsAppDialogOpen(false);
     whatsAppForm.reset();
