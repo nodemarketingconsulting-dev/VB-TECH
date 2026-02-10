@@ -88,8 +88,11 @@ export function Contact() {
   }
 
   async function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
+    const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
+    const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
+
     try {
-      await fetch("/api/leads", {
+      const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,12 +101,15 @@ export function Contact() {
           source: "WhatsApp",
         }),
       });
+
+      if (!response.ok) {
+        console.error("Erro ao salvar lead WhatsApp:", response.status);
+      }
     } catch (e) {
+      console.error("Erro ao salvar lead WhatsApp:", e);
     }
 
-    const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
-    const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, "_blank");
+    window.location.href = whatsappUrl;
     setIsWhatsAppDialogOpen(false);
     whatsAppForm.reset();
   }
