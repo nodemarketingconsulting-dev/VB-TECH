@@ -54,40 +54,37 @@ export function Contact() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const subject = `Novo Lead via Site - ${values.name}`;
-    const body = `Nome: ${values.name}
-Email: ${values.email}
-Telefone: ${values.phone}
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          message: values.message,
+          source: "Site Contact Form",
+        }),
+      });
 
-Mensagem:
-${values.message}`;
+      if (!response.ok) {
+        throw new Error("Erro ao enviar");
+      }
 
-    const mailtoUrl = `mailto:contato@vbtech.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    // Save to local storage for "database" demo
-    const newLead = {
-      id: Date.now().toString(),
-      name: values.name,
-      email: values.email,
-      phone: values.phone,
-      message: values.message,
-      source: "Site Contact Form",
-      date: new Date().toISOString(),
-    };
-    
-    const existingLeads = localStorage.getItem("vbtech_leads");
-    const leads = existingLeads ? JSON.parse(existingLeads) : [];
-    localStorage.setItem("vbtech_leads", JSON.stringify([...leads, newLead]));
-    
-    window.location.href = mailtoUrl;
-    
-    toast({
-      title: "Abrindo seu cliente de e-mail...",
-      description: "Por favor, clique em enviar no seu aplicativo de e-mail para finalizar.",
-    });
-    
-    form.reset();
+      toast({
+        title: "Mensagem enviada com sucesso!",
+        description: "Nossa equipe entrará em contato em breve.",
+      });
+
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Erro ao enviar",
+        description: "Tente novamente ou entre em contato pelo WhatsApp.",
+      });
+    }
   }
 
   function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
