@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -104,7 +104,7 @@ ${values.message}`;
     <Section id="contato" className="py-24">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
         <motion.div
-           variants={revealVariants}
+           variants={revealVariants as Variants}
            initial="hidden"
            whileInView="visible"
            viewport={{ once: true }}
@@ -179,7 +179,7 @@ ${values.message}`;
         </motion.div>
 
         <motion.div
-           variants={revealVariants}
+           variants={revealVariants as Variants}
            initial="hidden"
            whileInView="visible"
            viewport={{ once: true }}
