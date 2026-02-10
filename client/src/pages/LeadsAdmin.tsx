@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Shield, Search, Download, Trash2, User, Phone, Mail, MessageSquare, Calendar } from "lucide-react";
+import { Lock, Shield, Search, Download, Trash2, User, Phone, Mail, MessageSquare, Calendar, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Lead } from "@shared/schema";
 
@@ -174,6 +174,14 @@ export default function LeadsAdmin() {
                 data-testid="input-search-leads"
               />
             </div>
+            <Button
+              variant="outline"
+              className="border-primary/30 text-primary hover:bg-primary/10"
+              onClick={() => fetchLeads()}
+              data-testid="button-refresh-leads"
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Atualizar
+            </Button>
             <Button
               variant="outline"
               className="border-primary/30 text-primary hover:bg-primary/10"
