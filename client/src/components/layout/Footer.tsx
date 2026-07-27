@@ -13,12 +13,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link href="/">
-              <a className="flex items-center gap-2 cursor-pointer">
-                <div className="w-32 h-10 relative">
-                  <img src="/images/vb-tech-logo.png" alt="VB Tech" className="w-full h-full object-contain" />
-                </div>
-              </a>
+            <Link href="/" className="flex items-center gap-2 cursor-pointer">
+              <div className="w-32 h-10 relative">
+                <img src="/images/vb-tech-logo.png" alt="VB Tech" className="w-full h-full object-contain" />
+              </div>
             </Link>
             <p className="text-muted-foreground leading-relaxed">
               Gestão de TI com estabilidade, segurança e controle para o seu negócio crescer sem barreiras.
@@ -79,12 +77,12 @@ export function Footer() {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} VB Tech. Todos os direitos reservados.</p>
           <div className="flex gap-6">
-            <Link href="/politica-privacidade">
-              <a className="hover:text-white transition-colors">Privacidade</a>
+            <Link href="/politica-privacidade" className="hover:text-white transition-colors">
+              Privacidade
             </Link>
             <a href="#" className="hover:text-white transition-colors">Termos</a>
-            <Link href="/leadsrespostas">
-              <a className="hover:text-white transition-colors">Admin</a>
+            <Link href="/leadsrespostas" className="hover:text-white transition-colors">
+              Admin
             </Link>
           </div>
         </div>
