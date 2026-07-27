@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,6 +27,9 @@ export function Footer() {
               <a href="https://br.linkedin.com/company/vbtech-ti" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-primary hover:bg-white/5 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
+              <a href="https://www.instagram.com/vb_techbr/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-primary hover:bg-white/5 transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
@@ -38,7 +41,7 @@ export function Footer() {
               <li><a href="#sobre" className="text-muted-foreground hover:text-primary transition-colors">Sobre</a></li>
               <li><a href="#solucoes" className="text-muted-foreground hover:text-primary transition-colors">Soluções</a></li>
               <li><a href="#clientes" className="text-muted-foreground hover:text-primary transition-colors">Clientes</a></li>
-              <li><a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">Área do Cliente</a></li>
+              <li><a href="https://vbtech.suport.cloud/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">Área do Cliente</a></li>
             </ul>
           </div>
 

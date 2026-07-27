@@ -78,7 +78,7 @@ export function Header() {
         {/* Right Actions */}
         <div className="flex items-center gap-4">
           <div className="hidden lg:block">
-            <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
+            <a href="https://vbtech.suport.cloud/" target="_blank" rel="noopener noreferrer">
               <Button 
                 className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 shadow-[0_0_15px_rgba(45,169,225,0.3)] hover:shadow-[0_0_25px_rgba(45,169,225,0.5)] transition-all transform hover:-translate-y-0.5"
               >
@@ -115,7 +115,7 @@ export function Header() {
                   {item.name}
                 </a>
               ))}
-              <a href="https://vbtech.suport.systems/#/login" target="_blank" rel="noopener noreferrer">
+              <a href="https://vbtech.suport.cloud/" target="_blank" rel="noopener noreferrer">
                 <Button className="w-full bg-primary hover:bg-primary/90 text-white mt-4">
                   Área do Cliente <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
