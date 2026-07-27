@@ -56,7 +56,7 @@ export function Contact() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("/api/leads", {
+      const response = await fetch("/send-email.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -64,7 +64,6 @@ export function Contact() {
           email: values.email,
           phone: values.phone,
           message: values.message,
-          source: "Site Contact Form",
         }),
       });
 
@@ -90,29 +89,9 @@ export function Contact() {
   async function onWhatsAppSubmit(values: z.infer<typeof whatsAppFormSchema>) {
     const text = `*Novo contato via WhatsApp*\n\n*Nome:* ${values.name}\n*Telefone:* ${values.phone}\n\nGostaria de falar sobre os serviços da VB Tech.`;
     const whatsappUrl = `https://wa.me/551142570789?text=${encodeURIComponent(text)}`;
-
     setIsWhatsAppDialogOpen(false);
-
-    try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: values.name,
-          phone: values.phone,
-          source: "WhatsApp",
-        }),
-        keepalive: true,
-      });
-      if (!response.ok) {
-        console.error("Erro ao salvar lead WhatsApp:", response.status);
-      }
-    } catch (e) {
-      console.error("Erro ao salvar lead WhatsApp:", e);
-    } finally {
-      whatsAppForm.reset();
-      window.open(whatsappUrl, "_blank");
-    }
+    whatsAppForm.reset();
+    window.open(whatsappUrl, "_blank");
   }
 
   return (

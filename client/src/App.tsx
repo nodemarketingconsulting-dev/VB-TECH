@@ -5,14 +5,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import ClientArea from "@/pages/ClientArea";
 import { PrivacyPolicy } from "@/pages/PrivacyPolicy";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { LoadingScreen } from "@/components/ui/loading-screen";
-import LeadsAdmin from "@/pages/LeadsAdmin";
-import ProposalCreator from "@/pages/ProposalCreator";
-import ProposalViewer from "@/pages/ProposalViewer";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -20,10 +16,6 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/cliente" component={ClientArea} />
-      <Route path="/leadsrespostas" component={LeadsAdmin} />
-      <Route path="/criadordeproposta" component={ProposalCreator} />
-      <Route path="/proposta/:id" component={ProposalViewer} />
       <Route path="/politica-privacidade" component={PrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>

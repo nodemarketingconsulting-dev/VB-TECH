@@ -81,9 +81,6 @@ export function Footer() {
               Privacidade
             </Link>
             <a href="#" className="hover:text-white transition-colors">Termos</a>
-            <Link href="/leadsrespostas" className="hover:text-white transition-colors">
-              Admin
-            </Link>
           </div>
         </div>
       </div>
