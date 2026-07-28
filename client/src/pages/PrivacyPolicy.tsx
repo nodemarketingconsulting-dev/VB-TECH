@@ -13,21 +13,17 @@ export function PrivacyPolicy() {
       {/* Simple Header with Back Button */}
       <header className="fixed top-0 left-0 right-0 z-50 py-6 bg-black/50 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <Link href="/">
-            <a className="flex items-center gap-2 group cursor-pointer">
-              <div className="w-24 h-8 relative">
-                <img
-                  src="/images/vb-tech-logo.png"
-                  alt="VB Tech"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </a>
+          <Link href="/" className="flex items-center gap-2 cursor-pointer">
+            <div className="w-24 h-8 relative">
+              <img
+                src="/images/vb-tech-logo.png"
+                alt="VB Tech"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </Link>
-          <Link href="/">
-            <Button variant="ghost" className="text-white hover:text-primary gap-2">
-              <ArrowLeft className="w-4 h-4" /> Voltar para Home
-            </Button>
+          <Link href="/" className="inline-flex items-center gap-2 text-white hover:text-primary px-4 py-2 rounded-md transition-colors text-sm font-medium">
+            <ArrowLeft className="w-4 h-4" /> Voltar para Home
           </Link>
         </div>
       </header>
@@ -42,7 +38,7 @@ export function PrivacyPolicy() {
               Tratamento de Dados Pessoais pela VB Tech
             </p>
             <p className="text-sm text-muted-foreground">
-              VB Tech Consultoria de TI Ltda &nbsp;|&nbsp; Versão 1.0 &nbsp;|&nbsp; Código P-007 &nbsp;|&nbsp; Classificação: Público
+              VB Tech Consultoria de TI Ltda &nbsp;|&nbsp; Versão 1.3 &nbsp;|&nbsp; Código P-007 &nbsp;|&nbsp; Classificação: Público
             </p>
           </div>
 
@@ -76,7 +72,7 @@ export function PrivacyPolicy() {
                   <strong className="text-white">Controladora:</strong> quando trata dados pessoais coletados diretamente por meio do site institucional, de formulários de contato, ou de sua própria relação comercial e administrativa com clientes, fornecedores e colaboradores.
                 </li>
                 <li>
-                  <strong className="text-white">Operadora:</strong> quando trata dados pessoais em nome de um cliente, no âmbito da prestação de serviços de TI contratados (ex.: gestão de infraestrutura, suporte técnico, backup), seguindo as instruções e finalidades definidas pelo cliente controlador. Nesses casos, aplicam-se também as cláusulas específicas de operador de dados previstas no contrato de prestação de serviços (documento interno P-010).
+                  <strong className="text-white">Operadora:</strong> quando trata dados pessoais em nome de um cliente, no âmbito da prestação de serviços de TI contratados (ex.: gestão de infraestrutura, suporte técnico, backup), seguindo as instruções e finalidades definidas pelo cliente controlador. Nesses casos, aplicam-se também as cláusulas específicas de proteção de dados e confidencialidade previstas no Contrato de Prestação de Serviço firmado com o cliente.
                 </li>
               </ul>
               <p>
@@ -125,7 +121,7 @@ export function PrivacyPolicy() {
                 4.1. A VB Tech Consultoria de TI Ltda é, na maior parte das situações descritas nesta política, a controladora dos dados pessoais tratados, sendo responsável por assegurar que o tratamento ocorra em conformidade com esta política e com a legislação aplicável.
               </p>
               <p>
-                4.2. A empresa compromete-se a garantir que qualquer pessoa, física ou jurídica, envolvida no tratamento de dados em seu nome cumpra as diretrizes desta política e da Política de Segurança da Informação (P-001).
+                4.2. A empresa compromete-se a garantir que qualquer pessoa, física ou jurídica, envolvida no tratamento de dados em seu nome cumpra as diretrizes desta política e da política interna de segurança da informação da VB Tech.
               </p>
               <p>
                 4.3. Os dados pessoais serão tratados exclusivamente para as finalidades previstas nesta política ou em contratos e acordos comerciais, sendo vedado o uso para fins pessoais ou diversos dos aqui estabelecidos.
@@ -136,7 +132,7 @@ export function PrivacyPolicy() {
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-white">5. Tratamento de Dados Sensíveis</h2>
               <p>
-                5.1. A VB Tech poderá, excepcionalmente e apenas quando estritamente necessário à prestação de determinado serviço contratado, tratar dados pessoais sensíveis, conforme definidos pela LGPD (art. 5º, II), sempre com base em hipótese legal aplicável e sob as medidas de segurança reforçadas previstas na Política de Segurança da Informação (P-001).
+                5.1. A VB Tech poderá, excepcionalmente e apenas quando estritamente necessário à prestação de determinado serviço contratado, tratar dados pessoais sensíveis, conforme definidos pela LGPD (art. 5º, II), sempre com base em hipótese legal aplicável e sob medidas de segurança reforçadas.
               </p>
               <p>
                 5.2. Quando a VB Tech atuar como operadora de dados sensíveis em nome de um cliente (ex.: dados de saúde tratados por clientes do setor de medicina ocupacional), o tratamento segue estritamente as instruções e finalidades definidas pelo cliente controlador, sem uso próprio desses dados pela VB Tech para quaisquer outras finalidades.
@@ -160,7 +156,7 @@ export function PrivacyPolicy() {
               <p>7.1. A VB Tech poderá compartilhar dados pessoais nas seguintes hipóteses:</p>
               <ul className="list-disc pl-6 space-y-3">
                 <li>
-                  <strong className="text-white">Prestadores de serviço e parceiros tecnológicos:</strong> os dados pessoais poderão ser compartilhados com fornecedores que auxiliam na execução das atividades contratadas, como as plataformas Microsoft 365, GoTo Connect, Bitdefender e Milvus, sempre limitados ao necessário para a prestação do serviço e sob obrigação contratual de confidencialidade.
+                  <strong className="text-white">Prestadores de serviço e parceiros tecnológicos:</strong> os dados pessoais poderão ser compartilhados com fornecedores que auxiliam na execução das atividades contratadas, como as plataformas Microsoft 365, GoTo Connect, Bitdefender, TeamViewer e Milvus, sempre limitados ao necessário para a prestação do serviço e sob obrigação contratual de confidencialidade.
                 </li>
                 <li>
                   <strong className="text-white">Obrigação legal ou regulatória:</strong> os dados pessoais poderão ser compartilhados para cumprimento de obrigações legais, regulatórias ou mediante determinação judicial.
@@ -196,7 +192,7 @@ export function PrivacyPolicy() {
                 <a href="mailto:privacidade@vbtech.com.br" className="text-primary hover:underline">
                   privacidade@vbtech.com.br
                 </a>
-                , e serão tratadas conforme os prazos definidos no Procedimento de Atendimento a Titulares (P-009).
+                , e serão tratadas conforme os prazos definidos no procedimento interno de atendimento a titulares da VB Tech.
               </p>
             </div>
 
@@ -207,7 +203,7 @@ export function PrivacyPolicy() {
                 10.1. A VB Tech manterá os dados pessoais somente pelo período necessário para cumprir as finalidades para as quais foram coletados, inclusive para cumprimento de obrigações legais, contratuais ou regulatórias.
               </p>
               <p>
-                10.2. Ao término de um contrato de prestação de serviços, os dados pessoais tratados no âmbito daquele contrato seguem o Procedimento de Encerramento de Contrato (P-004), que define os prazos de devolução e exclusão segura.
+                10.2. Ao término de um contrato de prestação de serviços, os dados pessoais tratados no âmbito daquele contrato seguem o procedimento interno de encerramento de contrato da VB Tech, que define os prazos de devolução e exclusão segura.
               </p>
             </div>
 
@@ -215,7 +211,7 @@ export function PrivacyPolicy() {
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-white">11. Segurança da Informação</h2>
               <p>
-                11.1. A VB Tech adota medidas técnicas e organizacionais de segurança da informação alinhadas às melhores práticas de mercado, detalhadas na Política de Segurança da Informação (P-001) e no Plano de Continuidade de Negócios (P-002), com o objetivo de proteger a privacidade e os dados pessoais tratados contra acessos não autorizados e incidentes de segurança.
+                11.1. A VB Tech adota medidas técnicas e organizacionais de segurança da informação alinhadas às melhores práticas de mercado, detalhadas em políticas internas de segurança da informação e de continuidade de negócios, com o objetivo de proteger a privacidade e os dados pessoais tratados contra acessos não autorizados e incidentes de segurança.
               </p>
             </div>
 
@@ -246,10 +242,8 @@ export function PrivacyPolicy() {
             </div>
 
             <div className="flex justify-center pt-4">
-              <Link href="/">
-                <Button className="bg-primary hover:bg-primary/90 text-white gap-2 px-8">
-                  <ArrowLeft className="w-4 h-4" /> Voltar para Página Inicial
-                </Button>
+              <Link href="/" className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-2 rounded-md font-medium transition-colors">
+                <ArrowLeft className="w-4 h-4" /> Voltar para Página Inicial
               </Link>
             </div>
           </GlassCard>
